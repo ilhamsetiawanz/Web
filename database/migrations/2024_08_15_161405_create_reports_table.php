@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->uuid('id_petani');
+            $table->foreignId('id_penyakit')->constrained('data_penyakits')->cascadeOnDelete();
+            $table->date('tanggal_periksa');
             $table->timestamps();
         });
     }

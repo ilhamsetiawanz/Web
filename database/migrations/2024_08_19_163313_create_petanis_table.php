@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('petanis', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('NamaPetani');
             $table->string('AlamatPetani');
             $table->string('NoTelpPetani');
-            
+            $table->foreignUuid('idUsers')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

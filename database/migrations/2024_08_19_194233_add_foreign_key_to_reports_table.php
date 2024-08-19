@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('artikels', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('judul');
-            $table->string('image');
-            $table->enum('status', ['Draft', 'Published']);
-            $table->text('content');
-            $table->timestamps();
+        Schema::table('reports', function (Blueprint $table) {
+            $table->uuid('id_petani')->change(); // Pastikan tipe kolom sesuai
+            $table->foreign('id_petani')->references('id')->on('petanis')->cascadeOnDelete();
         });
     }
 
@@ -26,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('artikels');
+        Schema::table('reports', function (Blueprint $table) {
+            //
+        });
     }
 };

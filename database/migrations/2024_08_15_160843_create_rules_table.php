@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('data_gejalas', function (Blueprint $table) {
+        Schema::create('rules', function (Blueprint $table) {
             $table->id();
-            $table->string("KdGejala");
-            $table->string("NamaGejala");
+            $table->foreignId('KdGejala')->constrained('data_gejalas')->cascadeOnDelete();
+            $table->foreignId('KdPenyakit')->constrained('data_penyakits')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('data_gejalas');
+        Schema::dropIfExists('rules');
     }
 };

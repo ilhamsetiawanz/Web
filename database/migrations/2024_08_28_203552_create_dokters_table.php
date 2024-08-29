@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('petanis', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('NamaPetani');
-            $table->string('AlamatPetani');
-            $table->string('NoTelpPetani');
-            $table->string('image');
-            $table->foreignUuid('idUsers')->constrained('users')->cascadeOnDelete();
+        Schema::create('dokters', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('petanis');
+        Schema::dropIfExists('dokters');
     }
 };

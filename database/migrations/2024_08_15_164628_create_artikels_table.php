@@ -14,9 +14,12 @@ return new class extends Migration
         Schema::create('artikels', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('judul');
+            $table->string('slug')->unique();
+            $table->foreignUuid('idAuthor')->constrained('users')->cascadeOnDelete();
             $table->string('image');
-            $table->enum('status', ['Draft', 'Published']);
+            $table->enum('status', ['Draft', 'Published'])->default('Draft');
             $table->text('content');
+            $table->date('Tanggal_Post');
             $table->timestamps();
         });
     }

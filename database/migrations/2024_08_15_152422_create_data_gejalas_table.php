@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('data_gejalas', function (Blueprint $table) {
             $table->id();
-            $table->string("KdGejala");
-            $table->string("NamaGejala");
+            $table->string('name', '255');
+            $table->string('image', '255')->nullable();
             $table->timestamps();
         });
     }

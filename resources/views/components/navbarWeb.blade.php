@@ -15,7 +15,7 @@
         <a href="#" class="hover:text-gray-700">Diagnosa</a>
     </nav>
     <div class="hidden md:flex space-x-4">
-        <a href="{{route('Login')}}">
+        <a href="{{route('login')}}">
         <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Login</button>
         </a>
     </div>

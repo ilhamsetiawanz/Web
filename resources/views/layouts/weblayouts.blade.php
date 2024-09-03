@@ -24,7 +24,7 @@
     <!-- Footer -->
     <footer class="bg-white py-6">
         <div class="container mx-auto text-center">
-            <p class="text-gray-500">&copy; SiCabai 2024 copyright all rights reserved</p>
+            <p class="text-gray-500">&copy; TamanSehat 2024 copyright all rights reserved</p>
             <div class="flex justify-center space-x-4 mt-4">
                 <a href="#" class="hover:text-gray-700"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="hover:text-gray-700"><i class="fab fa-twitter"></i></a>

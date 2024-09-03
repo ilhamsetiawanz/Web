@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\DataPenyakit;
 use App\Http\Requests\StoreDataPenyakitRequest;
 use App\Http\Requests\UpdateDataPenyakitRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class DataPenyakitController extends Controller
 {
@@ -13,7 +15,16 @@ class DataPenyakitController extends Controller
      */
     public function index()
     {
-        //
+        $dataPenyakit = DataPenyakit::get([
+            'id',
+            'NamaPenyakit',
+            'reason',
+            'solution',
+            'image',
+            'updated_at'
+        ]);
+
+        return view('pages.Admin.Penyakit.penyakit', compact('dataPenyakit'));
     }
 
     /**
@@ -29,7 +40,27 @@ class DataPenyakitController extends Controller
      */
     public function store(StoreDataPenyakitRequest $request)
     {
-        //
+        $validate = Validator::make($request->all(),[
+            'KdPenyakit' => 'required',
+            'NamaPenyakit' => 'required',
+            'reason' => 'required',
+            'solution' => 'required',
+            'image' => 'required|mimes:jpg,jpeg,png|max:2048',
+        ]);
+        if ($validate->fails()) {
+            return response()->json($validate->errors(), 422);
+        }
+        $image = $request->file('image');
+        $image->storeAs('public/asset/dataPenyakit', $image->hashName());
+
+        $dataPenyakit = DataPenyakit::create([
+            'KdPenyakit' => $request->KdPenyakit,
+            'NamaPenyakit' => $request->NamaPenyakit,
+            'reason' => $request->reason,
+            'solution' => $request->solution,
+            'image' => $image->hashName(),
+        ]);
+        return redirect('Admin/data-penyakit');
     }
 
     /**
@@ -61,6 +92,11 @@ class DataPenyakitController extends Controller
      */
     public function destroy(DataPenyakit $dataPenyakit)
     {
-        //
+        {
+            Storage::delete('public/asset/dataGejala'.basename($dataPenyakit->image));
+    
+            $dataPenyakit->delete();
+            return redirect('Admin/data-gejala');
+        }
     }
 }

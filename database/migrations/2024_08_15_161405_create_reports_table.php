@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('id_petani');
             $table->foreignId('id_penyakit')->constrained('data_penyakits')->cascadeOnDelete();
+            $table->json('answer_log');
             $table->date('tanggal_periksa');
             $table->timestamps();
         });

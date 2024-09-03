@@ -23,12 +23,14 @@
                 </h1>
                 <div class="w-full flex-1 mt-8">
                     <div class="mx-auto max-w-xs">
-                        <input
+                        <form action="{{ route('processLogin') }}" method="POST">
+                            @csrf
+                            <input
                             class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                            type="email" placeholder="Email" />
+                            name="email" type="email" placeholder="Email" />
                         <input
                             class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                            type="password" placeholder="Password" />
+                            name="email" type="password" placeholder="Password" />
                         <button
                             class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
                             <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
@@ -41,9 +43,10 @@
                                 Sign Up
                             </span>
                         </button>
+                        </form>
                         <p class="mt-6 text-xs text-gray-600 text-center">
                             Belum Memiliki Akun?
-                            <a class="border-b border-gray-500 border-dotted" href="{{route('RegisterPetani')}}">Daftar Sebagai Petani</a>
+                            <a class="border-b border-gray-500 border-dotted">Daftar Sebagai Petani</a>
                             Atau
                             <a class="border-b border-gray-500 border-dotted" href="">Daftar Sebagai Dokter</a>
                     

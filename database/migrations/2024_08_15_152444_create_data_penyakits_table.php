@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('data_penyakits', function (Blueprint $table) {
             $table->id();
-            $table->string('KdPenyakit');
+            $table->string('KdPenyakit')->nullable();
             $table->string('NamaPenyakit');
-            $table->string('Solusi');
-            $table->string('Pencegahan');
+            $table->text('reason');
+            $table->text('solution')->nullable();
+            $table->string('image', '255')->nullable();
             $table->timestamps();
         });
     }

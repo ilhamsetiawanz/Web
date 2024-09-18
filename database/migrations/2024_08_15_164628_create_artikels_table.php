@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('judul');
             $table->string('slug')->unique();
-            $table->foreignUuid('idAuthor')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('idAuthor')->constrained('users')->cascadeOnDelete();
             $table->string('image');
             $table->enum('status', ['Draft', 'Published'])->default('Draft');
             $table->text('content');

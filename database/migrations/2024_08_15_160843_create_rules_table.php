@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('KdGejala')->constrained('data_gejalas')->cascadeOnDelete();
             $table->foreignId('KdPenyakit')->constrained('data_penyakits')->cascadeOnDelete();
-            $table->foreignId('next_first_gejala_id')->constrained('data_gejalas')->cascadeOnDelete();
+            $table->foreignId('next_first_gejala_id')->nullable()->constrained('data_gejalas')->cascadeOnDelete();
             $table->timestamps();
         });
     }

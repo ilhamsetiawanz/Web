@@ -9,7 +9,7 @@
             </a>
         </div>
         <div class="flex-1 relative mt-8 md:mt-0">
-            <img src="{{ asset('img/sapiens.png') }}" alt="Illustration" class="w-full h-auto xl:w-[45rem] xl:h-[40rem]">
+            <img src="{{ asset('img/sapiens.png') }}" alt="Illustration" class="w-full h-auto xl:w-[45rem]">
         </div>
     </div>
 </section>

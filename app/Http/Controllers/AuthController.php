@@ -18,16 +18,31 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
+    
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('admin');
+    
+            // Dapatkan peran pengguna yang sedang login
+            $userRole = Auth::user()->role; // Asumsi ada kolom 'role' di tabel users
+    
+            // Redirect berdasarkan peran pengguna
+            if ($userRole === 'admin') {
+                return redirect()->intended('/Admin');
+            } elseif ($userRole === 'user') {
+                return redirect()->intended('/');
+            }
+    
+            // Default redirect jika tidak ada peran yang sesuai
+            return redirect()->intended('/');
         }
-
-        // dd($request->all());
+    
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
-        
     }
+    public function logOut(){
+        Auth::logout();
+        return redirect()->route('Home')->with('success', 'You have been logged out.');
+    }
+    
 }

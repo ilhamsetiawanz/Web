@@ -5,9 +5,11 @@ namespace Database\Seeders;
 use App\Models\Artikel;
 use App\Models\DataGejala;
 use App\Models\DataPenyakit;
+use App\Models\Rule;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
@@ -19,60 +21,62 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::insert([
-        //     [
-        //         'id' => (string) Str::uuid(),
-        //         'name' => 'Test Admin',
-        //         'email' => 'admin@example.com',
-        //         // 'password' => hash('md5'),
-        //         'role' => 'Admin',
-        //     ],
-        //     [
-        //         'id' => (string) Str::uuid(),
-        //         'name' => 'Test Petani',
-        //         'email' => 'petani@example.com',
-        //         'password' => bcrypt('petani123'),
-        //         'role' => 'Petani',
-        //     ]
-        // ]);
+        User::insert([
+            [
+                'name' => 'Test Admin',
+                'email' => 'admin@example.com',
+                'password' => Hash::make('password123'), 
+                'role' => 'admin',
+            ],
+            [
+                'name' => 'Test Petani',
+                'email' => 'petani@example.com',
+                'password' => Hash::make('password123'), 
+                'role' => 'user',
+            ]
+        ]);
 
         DataGejala::insert([
-            ["name" => "Daun tua atau daun muda menguning"],
-            ["name" => "Batang membusuk"],
-            ["name" => "Pucatnya tulang-tulang daun bagian atas"],
-            ["name" => "Terkulainya tangkai daun"],
-            ["name" => "Tanaman menjadi layu"],
-            ["name" => "Tanaman mati"],
-            ["name" => "Bercak coklat pada jaringan pembuluh batang"],
-            ["name" => "Bercak coklat pada pembuluh akar"],
-            ["name" => "Warna buah cabai menjadi kekuningan dan busuk"],
-            ["name" => "Bagian bawah daun layu"],
-            ["name" => "Bercak pada daun berwarna pucat sampai putih"],
-            ["name" => "Tanaman tumbuh kerdil"],
-            ["name" => "Bercak coklat kehitaman pada permukaan buah"],
-            ["name" => "Daun yang terinfeksi menguning dan gugur"],
-            ["name" => "Bercak kecil bulat pada daun yang mengering"],
-            ["name" => "Daun berlubang akibat bercak"],
-            ["name" => "Tangkai daun berwarna kuning"],
-            ["name" => "Pangkal batang berwarna coklat"],
-            ["name" => "Busuk pada pangkal batang"],
-            ["name" => "Ranting/tangkai berwarna coklat kehitaman"],
-            ["name" => "Spora cendawan berwarna kelabu terlihat"],
-            ["name" => "Bercak kecoklatan pada daun"],
-            ["name" => "Bercak putih yang dikelilingi warna coklat kehitaman pada buah"],
-            ["name" => "Daun berguguran"],
-            ["name" => "Buah gugur"],
-            ["name" => "Kuning daun"],
-            ["name" => "Penggumpalan pada daun"],
-            ["name" => "Daun kecil"],
-            ["name" => "Buah kecil dan tidak normal"],
-            ["name" => "Pertumbuhan terlambat"],
-            ["name" => "Kekeringan pada daun"],
-            ["name" => "Daun menggulung ke arah atas atau bawah, sering keriput atau melengkung"],
-            ["name" => "Penurunan kualitas buah"],
-            ["name" => "Lesi pada batang dan cabang"],
-            ["name" => "Kehilangan kualitas buah"],
+        ["name" => "Daun menguning"],
+        ["name" => "Batang membusuk"],
+        ["name" => "Pucatnya tulang-tulang daun bagian atas"],
+        ["name" => "Terkulainya tangkai daun"],
+        ["name" => "Tanaman menjadi layu"],
+        ["name" => "Tanaman mati"],
+        ["name" => "Bercak coklat pada jaringan pembuluh batang"],
+        ["name" => "Bercak coklat pada pembuluh akar"],
+        ["name" => "Warna buah cabai menjadi kekuningan dan busuk"],
+        ["name" => "Bagian bawah daun layu"],
+        ["name" => "Tulang daun berwarna kuning"],
+        ["name" => "Bercak pada daun berwarna pucat sampai putih"],
+        ["name" => "Tanaman tumbuh kerdil"],
+        ["name" => "Bercak coklat kehitaman pada buah"],
+        ["name" => "Daun gugur"],
+        ["name" => "Bercak kecil bulat yang kering pada daun"],
+        ["name" => "Daun berlubang akibat bercak"],
+        ["name" => "Tangkai daun berwarna kuning"],
+        ["name" => "Pangkal batang berwarna coklat"],
+        ["name" => "Busuk di bagian pangkal batang"],
+        ["name" => "Ranting atau tangkai berwarna coklat kehitaman"],
+        ["name" => "Spora cendawan berwarna kelabu terlihat"],
+        ["name" => "Bercak kecoklatan pada daun"],
+        ["name" => "Bercak putih yang dikelilingi warna coklat kehitaman pada buah"],
+        ["name" => "Buah gugur"],
+        ["name" => "Penggumpalan pada daun"],
+        ["name" => "Daun kecil"],
+        ["name" => "Buah kecil dan tidak normal"],
+        ["name" => "Pertumbuhan terlambat"],
+        ["name" => "Kekeringan pada daun"],
+        ["name" => "Daun menggulung ke arah atas atau bawah, sering keriput atau melengkung"],
+        ["name" => "Penurunan kualitas buah"],
+        ["name" => "Lesi pada batang dan cabang"],
+        ["name" => "Daun menghitam"],
+        ["name" => "Bercak pada buah"],
+        ["name" => "Bentuk buah yang tidak normal"],
+        ["name" => "Daun kering"],
+        ["name" => "Kehilangan kualitas buah"],
         ]);
+
 
         DataPenyakit::insert([
             ["KdPenyakit" => "P1", "NamaPenyakit" => "Layu Fusarium", "reason" => "Jamur Fusarium oxysporum. Jamur ini menyerang tanaman melalui akar dan menyebar melalui sistem pembuluh tanaman, menyebabkan penyumbatan yang mengakibatkan tanaman layu."],
@@ -86,6 +90,260 @@ class DatabaseSeeder extends Seeder
             ["KdPenyakit" => "P9", "NamaPenyakit" => "Virus Keriting", "reason" => "Pepper yellow leaf curl virus atau virus lainnya yang disebarkan oleh kutu daun (Myzus persicae) atau kutu kebul (Bemisia tabaci). Virus ini menyebabkan daun menjadi keriting, pertumbuhan terhambat, dan penurunan kualitas buah."],
             ["KdPenyakit" => "P10", "NamaPenyakit" => "Antraknosa", "reason" => "Jamur Colletotrichum spp. Jamur ini menyerang buah, batang, dan daun, terutama pada kondisi cuaca hangat dan lembab, menyebar melalui air hujan, alat pertanian, atau sisa tanaman yang terinfeksi."]
         ]);
+
+        Rule::insert([
+            // Kaidah untuk Penyakit Layu Fusarium (ID 1)
+            [
+                'KdPenyakit' => 1,
+                'KdGejala' => 1,
+                'next_first_gejala_id' => 2
+            ],
+            [
+                'KdPenyakit' => 1,
+                'KdGejala' => 2,
+                'next_first_gejala_id' => 3
+            ],
+            [
+                'KdPenyakit' => 1,
+                'KdGejala' => 3,
+                'next_first_gejala_id' => 4
+            ],
+            [
+                'KdPenyakit' => 1,
+                'KdGejala' => 4,
+                'next_first_gejala_id' => 5
+            ],
+            [
+                'KdPenyakit' => 1,
+                'KdGejala' => 5,
+                'next_first_gejala_id' => null
+            ],
+        
+            // Kaidah untuk Penyakit Layu Bakteri (ID 2)
+            [
+                'KdPenyakit' => 2,
+                'KdGejala' => 5,
+                'next_first_gejala_id' => 6
+            ],
+            [
+                'KdPenyakit' => 2,
+                'KdGejala' => 6,
+                'next_first_gejala_id' => 7
+            ],
+            [
+                'KdPenyakit' => 2,
+                'KdGejala' => 7,
+                'next_first_gejala_id' => 8
+            ],
+            [
+                'KdPenyakit' => 2,
+                'KdGejala' => 8,
+                'next_first_gejala_id' => 9
+            ],
+            [
+                'KdPenyakit' => 2,
+                'KdGejala' => 9,
+                'next_first_gejala_id' => null
+            ],
+        
+            // Kaidah untuk Penyakit Busuk Buah (ID 3)
+            [
+                'KdPenyakit' => 3,
+                'KdGejala' => 10,
+                'next_first_gejala_id' => 11
+            ],
+            [
+                'KdPenyakit' => 3,
+                'KdGejala' => 11,
+                'next_first_gejala_id' => 12
+            ],
+            [
+                'KdPenyakit' => 3,
+                'KdGejala' => 12,
+                'next_first_gejala_id' => 13
+            ],
+            [
+                'KdPenyakit' => 3,
+                'KdGejala' => 13,
+                'next_first_gejala_id' => 14
+            ],
+            [
+                'KdPenyakit' => 3,
+                'KdGejala' => 14,
+                'next_first_gejala_id' => null
+            ],
+        
+            // Kaidah untuk Penyakit Bercak Daun (ID 4)
+            [
+                'KdPenyakit' => 4,
+                'KdGejala' => 1,
+                'next_first_gejala_id' => 15
+            ],
+            [
+                'KdPenyakit' => 4,
+                'KdGejala' => 15,
+                'next_first_gejala_id' => 16
+            ],
+            [
+                'KdPenyakit' => 4,
+                'KdGejala' => 16,
+                'next_first_gejala_id' => 17
+            ],
+            [
+                'KdPenyakit' => 4,
+                'KdGejala' => 17,
+                'next_first_gejala_id' => 18
+            ],
+            [
+                'KdPenyakit' => 4,
+                'KdGejala' => 18,
+                'next_first_gejala_id' => null
+            ],
+        
+            // Kaidah untuk Penyakit Rebah Batang/Semi (ID 5)
+            [
+                'KdPenyakit' => 5,
+                'KdGejala' => 19,
+                'next_first_gejala_id' => 20
+            ],
+            [
+                'KdPenyakit' => 5,
+                'KdGejala' => 20,
+                'next_first_gejala_id' => 5
+            ],
+            [
+                'KdPenyakit' => 5,
+                'KdGejala' => 5,
+                'next_first_gejala_id' => null
+            ],
+        
+            // Kaidah untuk Penyakit Busuk Kuncup (ID 6)
+            [
+                'KdPenyakit' => 6,
+                'KdGejala' => 21,
+                'next_first_gejala_id' => 20
+            ],
+            [
+                'KdPenyakit' => 6,
+                'KdGejala' => 20,
+                'next_first_gejala_id' => 22
+            ],
+            [
+                'KdPenyakit' => 6,
+                'KdGejala' => 22,
+                'next_first_gejala_id' => null
+            ],
+        
+            // Kaidah untuk Penyakit Bercak Bakteri (ID 7)
+            [
+                'KdPenyakit' => 7,
+                'KdGejala' => 23,
+                'next_first_gejala_id' => 24
+            ],
+            [
+                'KdPenyakit' => 7,
+                'KdGejala' => 24,
+                'next_first_gejala_id' => 15
+            ],
+            [
+                'KdPenyakit' => 7,
+                'KdGejala' => 15,
+                'next_first_gejala_id' => 25
+            ],
+            [
+                'KdPenyakit' => 7,
+                'KdGejala' => 25,
+                'next_first_gejala_id' => null
+            ],
+        
+            // Kaidah untuk Penyakit Virus Kuning (ID 8)
+            [
+                'KdPenyakit' => 8,
+                'KdGejala' => 1,
+                'next_first_gejala_id' => 26
+            ],
+            [
+                'KdPenyakit' => 8,
+                'KdGejala' => 26,
+                'next_first_gejala_id' => 27
+            ],
+            [
+                'KdPenyakit' => 8,
+                'KdGejala' => 27,
+                'next_first_gejala_id' => 28
+            ],
+            [
+                'KdPenyakit' => 8,
+                'KdGejala' => 28,
+                'next_first_gejala_id' => 29
+            ],
+            [
+                'KdPenyakit' => 8,
+                'KdGejala' => 29,
+                'next_first_gejala_id' => 30
+            ],
+            [
+                'KdPenyakit' => 8,
+                'KdGejala' => 30,
+                'next_first_gejala_id' => null
+            ],
+        
+            // Kaidah untuk Penyakit Virus Keriting (ID 9)
+            [
+                'KdPenyakit' => 9,
+                'KdGejala' => 31,
+                'next_first_gejala_id' => 32
+            ],
+            [
+                'KdPenyakit' => 9,
+                'KdGejala' => 32,
+                'next_first_gejala_id' => 1
+            ],
+            [
+                'KdPenyakit' => 9,
+                'KdGejala' => 1,
+                'next_first_gejala_id' => 29
+            ],
+            [
+                'KdPenyakit' => 9,
+                'KdGejala' => 29,
+                'next_first_gejala_id' => null
+            ],
+        
+            // Kaidah untuk Penyakit Antraknosa (ID 10)
+            [
+                'KdPenyakit' => 10,
+                'KdGejala' => 34,
+                'next_first_gejala_id' => 33
+            ],
+            [
+                'KdPenyakit' => 10,
+                'KdGejala' => 33,
+                'next_first_gejala_id' => 16
+            ],
+            [
+                'KdPenyakit' => 10,
+                'KdGejala' => 16,
+                'next_first_gejala_id' => 28
+            ],
+            [
+                'KdPenyakit' => 10,
+                'KdGejala' => 28,
+                'next_first_gejala_id' => 27
+            ],
+            [
+                'KdPenyakit' => 10,
+                'KdGejala' => 27,
+                'next_first_gejala_id' => 37
+            ],
+            [
+                'KdPenyakit' => 10,
+                'KdGejala' => 37,
+                'next_first_gejala_id' => null
+            ],
+        ]);
+        
+        
         
         
         

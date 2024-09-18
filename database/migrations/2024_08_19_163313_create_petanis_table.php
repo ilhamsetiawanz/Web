@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('AlamatPetani');
             $table->string('NoTelpPetani');
             $table->string('image');
-            $table->foreignUuid('idUsers')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('idUsers')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -84,7 +84,42 @@ class DataPenyakitController extends Controller
      */
     public function update(UpdateDataPenyakitRequest $request, DataPenyakit $dataPenyakit)
     {
-        //
+        $validate = Validator::make($request->all(),[
+            'KdPenyakit' => 'required',
+            'NamaPenyakit' => 'required',
+            'reason' => 'required',
+            'solution' => 'required',
+            'image' => 'required|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json($validate->errors(), 422);
+        }
+
+        if ($request->hasFile('image')) {
+            // Delete old image if it exists
+            if ($dataPenyakit->image) {
+                Storage::delete('public/asset/dataGejala' . $dataPenyakit->image);
+            }
+    
+            // Upload new image
+            $image = $request->file('image');
+            $image->storeAs('public/asset/dataGejala', $image->hashName());
+            $imageName = $image->hashName();
+        } else {
+            // Keep the existing image if no new image is uploaded
+            $imageName = $dataPenyakit->image;
+        }
+        $dataPenyakit->update([
+            'KdPenyakit' => $request->KdPenyakit,
+            'NamaPenyakit' => $request->NamaPenyakit,
+            'reason' => $request->reason,
+            'solution' => $request->solution,
+            'image' => $imageName,
+        ]);
+        
+        return redirect('Admin/data-penyakit');
+        
     }
 
     /**
@@ -93,10 +128,10 @@ class DataPenyakitController extends Controller
     public function destroy(DataPenyakit $dataPenyakit)
     {
         {
-            Storage::delete('public/asset/dataGejala'.basename($dataPenyakit->image));
+            Storage::delete('public/asset/dataPenyakit'.basename($dataPenyakit->image));
     
             $dataPenyakit->delete();
-            return redirect('Admin/data-gejala');
+            return redirect('Admin/data-penyakit');
         }
     }
 }

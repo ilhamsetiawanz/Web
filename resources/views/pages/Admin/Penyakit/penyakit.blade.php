@@ -3,7 +3,9 @@
 @section('title', 'Data Penyakit')
 
 @section('content')
-    <div>lol</div>
+    <div>
+        <h1>DATA PENYAKIT</h1>
+    </div>
     <div class="card h-full">
         <div class="card-body">
             <div class="flex justify-between">
@@ -11,6 +13,9 @@
                 @include('components.Admin.button.AddModal')
             </div>
                 @include('components.Admin.Penyakit.ModalAdd')
+                @foreach ($dataPenyakit as $data)
+                    @include('components.Admin.Penyakit.ModalEdit', ['data' => $data])
+                @endforeach
             <div class="relative overflow-x-auto">
                 <!-- table -->
                 <table class="text-left w-full whitespace-nowrap text-sm">
@@ -47,8 +52,8 @@
                             </td>
                             <td class="p-4">
                                 <div class="flex gap-2">
-                                    {{-- @include('components.Admin.Gejala.EditModal', ['data' => $data])
-                                    @include('components.Admin.Gejala.DeleteGejala', ['data' => $data]) --}}
+                                    @include('components.Admin.button.EditModal', ['data' => $data])
+                                    @include('components.Admin.Penyakit.DeletePenyakit', ['data' => $data]) 
                                 </div>
                             </td>
                         </tr>

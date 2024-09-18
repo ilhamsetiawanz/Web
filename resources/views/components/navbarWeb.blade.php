@@ -15,10 +15,39 @@
         <a href="#" class="hover:text-gray-700">Diagnosa</a>
     </nav>
     <div class="hidden md:flex space-x-4">
-        <a href="{{route('login')}}">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Login</button>
-        </a>
+        @if (Auth::check())
+            <div class="flex justify-between items-center gap-5">
+                <div>
+                    <a class="flex gap-1" href="">
+                        <span class="material-symbols-outlined">
+                            person
+                        </span>
+                        <span>{{Auth::user()->name}}</span>
+                    </a>
+                </div>
+                <div>
+                    <form method="POST" action="{{route('logout')}}">
+                        @csrf
+                        <button type="submit">
+                            <span class="material-symbols-outlined">
+                                logout
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @else
+            <a href="{{ route('login') }}">
+                <button class="flex items-center space-x-2 border-2 border-black text-black px-4 py-2 rounded hover:bg-gray-100">
+                    <span class="material-symbols-outlined">
+                        login
+                    </span>
+                    <span>Login</span>
+                </button>
+            </a>
+        @endif
     </div>
+    
 </div>
 <!-- Mobile Menu -->
 <div id="menu" class="hidden md:hidden bg-white shadow-lg">
@@ -27,7 +56,38 @@
         <a href="#" class="block text-gray-700 hover:text-gray-900">Artikel</a>
         <a href="#" class="block text-gray-700 hover:text-gray-900">Diagnosa</a>
         <div class="space-y-2 mt-4">
-            <button class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Login</button>
+            @if (Auth::check())
+            <div class="flex flex-col gap-3">
+                <div>
+                    <a class="flex items-center space-x-2 border-2 border-black text-black px-4 py-2 rounded hover:bg-gray-100" href="">
+                        <span class="material-symbols-outlined">
+                            person
+                        </span>
+                        <span>{{Auth::user()->name}}</span>
+                    </a>
+                </div>
+                <div>
+                    <form method="POST" action="{{route('logout')}}">
+                        @csrf
+                        <button class="flex items-center space-x-2 border-2 border-black text-black px-4 py-2 rounded hover:bg-gray-100 w-full" type="submit">
+                            <span class="material-symbols-outlined">
+                                logout
+                            </span>
+                            <span>Log Out</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            @else
+                <a href="{{ route('login') }}">
+                    <button class="flex items-center space-x-2 border-2 border-black text-black px-4 py-2 rounded hover:bg-gray-100">
+                        <span class="material-symbols-outlined">
+                            login
+                        </span>
+                        <span>Login</span>
+                    </button>
+                </a>
+            @endif
         </div>
     </nav>
 </div>

@@ -57,6 +57,7 @@
                                 <div>
                                     <label for="gambar-gejala" class="block text-sm font-semibold mt-3 mb-2 text-gray-600">Gambar</label>
                                     <input
+                                        accept=".png, .jpg, .jpeg"
                                         name="image"
                                         type="file"
                                         id="gambar-gejala"

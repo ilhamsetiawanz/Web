@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reports', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->uuid('id_petani');
+            $table->id()->primary();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('id_penyakit')->constrained('data_penyakits')->cascadeOnDelete();
             $table->json('answer_log');
             $table->date('tanggal_periksa');

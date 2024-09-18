@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Rule;
 use App\Http\Requests\StoreRuleRequest;
 use App\Http\Requests\UpdateRuleRequest;
+use App\Models\DataGejala;
+use App\Models\DataPenyakit;
 
 class RuleController extends Controller
 {
@@ -13,8 +15,20 @@ class RuleController extends Controller
      */
     public function index()
     {
-        //
+        $rules = Rule::paginate(25);
+        $dataGejala = DataGejala::all();
+        $dataPenyakit = DataPenyakit::all();
+
+        return view('pages.Admin.Aturan.aturan', compact('rules', 'dataGejala', 'dataPenyakit'));
     }
+    
+
+    /**
+    *
+    */
+    // private function getRules(){
+
+    // }
 
     /**
      * Show the form for creating a new resource.

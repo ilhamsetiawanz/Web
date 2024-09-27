@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id()->primary();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('id_penyakit')->constrained('data_penyakits')->cascadeOnDelete();
+            $table->foreignId('id_penyakit')->nullable()->constrained('data_penyakits')->cascadeOnDelete();
             $table->json('answer_log');
-            $table->date('tanggal_periksa');
             $table->timestamps();
         });
+        
     }
 
     /**

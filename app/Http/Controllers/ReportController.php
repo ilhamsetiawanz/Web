@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
+use App\Models\DataPenyakit;
+use App\Models\User;
 
 class ReportController extends Controller
 {
@@ -13,8 +15,22 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        // Menggunakan eager loading untuk memuat relasi yang diperlukan
+        $laporan = Report::with(['user', 'penyakit'])
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
+        
+        $penyakit = DataPenyakit::all();
+    
+        $pengguna = User::select('id', 'name', 'role')
+                        ->where('role', 'user')
+                        ->get();
+    
+        $totalLaporan = Report::count();
+    
+        return view('pages.Admin.Report.index', compact('laporan', 'totalLaporan', 'penyakit', 'pengguna'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

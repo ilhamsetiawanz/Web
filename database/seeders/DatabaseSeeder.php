@@ -92,256 +92,258 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Rule::insert([
-            // Kaidah untuk Penyakit Layu Fusarium (ID 1)
+            // Kaidah untuk Penyakit 1
             [
                 'KdPenyakit' => 1,
                 'KdGejala' => 1,
-                'next_first_gejala_id' => 2
+                'next_first_gejala_id' => 5,
             ],
             [
                 'KdPenyakit' => 1,
                 'KdGejala' => 2,
-                'next_first_gejala_id' => 3
+                'next_first_gejala_id' => 5,
             ],
             [
                 'KdPenyakit' => 1,
                 'KdGejala' => 3,
-                'next_first_gejala_id' => 4
+                'next_first_gejala_id' => 5,
             ],
             [
                 'KdPenyakit' => 1,
                 'KdGejala' => 4,
-                'next_first_gejala_id' => 5
+                'next_first_gejala_id' => 5,
             ],
             [
                 'KdPenyakit' => 1,
                 'KdGejala' => 5,
-                'next_first_gejala_id' => null
+                'next_first_gejala_id' => 6,
             ],
         
-            // Kaidah untuk Penyakit Layu Bakteri (ID 2)
-            [
-                'KdPenyakit' => 2,
-                'KdGejala' => 5,
-                'next_first_gejala_id' => 6
-            ],
+            // Kaidah untuk Penyakit 2
+            // [
+            //     'KdPenyakit' => 2,
+            //     'KdGejala' => 5,
+            //     'next_first_gejala_id' => 9,
+            // ],
             [
                 'KdPenyakit' => 2,
                 'KdGejala' => 6,
-                'next_first_gejala_id' => 7
+                'next_first_gejala_id' => 9,
             ],
             [
                 'KdPenyakit' => 2,
                 'KdGejala' => 7,
-                'next_first_gejala_id' => 8
+                'next_first_gejala_id' => 9,
             ],
             [
                 'KdPenyakit' => 2,
                 'KdGejala' => 8,
-                'next_first_gejala_id' => 9
+                'next_first_gejala_id' => 9,
             ],
-            [
-                'KdPenyakit' => 2,
-                'KdGejala' => 9,
-                'next_first_gejala_id' => null
-            ],
+            // [
+            //     'KdPenyakit' => 2,
+            //     'KdGejala' => 9,
+            //     'next_first_gejala_id' => 10,
+            // ],
         
-            // Kaidah untuk Penyakit Busuk Buah (ID 3)
+            // Kaidah untuk Penyakit 3
             [
                 'KdPenyakit' => 3,
                 'KdGejala' => 10,
-                'next_first_gejala_id' => 11
+                'next_first_gejala_id' => 15,
             ],
             [
                 'KdPenyakit' => 3,
                 'KdGejala' => 11,
-                'next_first_gejala_id' => 12
+                'next_first_gejala_id' => 15,
             ],
             [
                 'KdPenyakit' => 3,
                 'KdGejala' => 12,
-                'next_first_gejala_id' => 13
+                'next_first_gejala_id' => 15,
             ],
             [
                 'KdPenyakit' => 3,
                 'KdGejala' => 13,
-                'next_first_gejala_id' => 14
+                'next_first_gejala_id' => 15,
             ],
             [
                 'KdPenyakit' => 3,
                 'KdGejala' => 14,
-                'next_first_gejala_id' => null
+                'next_first_gejala_id' => 15,
             ],
         
-            // Kaidah untuk Penyakit Bercak Daun (ID 4)
-            [
-                'KdPenyakit' => 4,
-                'KdGejala' => 1,
-                'next_first_gejala_id' => 15
-            ],
+            // Kaidah untuk Penyakit 4
+            // [
+            //     'KdPenyakit' => 4,
+            //     'KdGejala' => 1,
+            //     'next_first_gejala_id' => 18,
+            // ],
             [
                 'KdPenyakit' => 4,
                 'KdGejala' => 15,
-                'next_first_gejala_id' => 16
+                'next_first_gejala_id' => 19,
             ],
             [
                 'KdPenyakit' => 4,
                 'KdGejala' => 16,
-                'next_first_gejala_id' => 17
+                'next_first_gejala_id' => 19,
             ],
             [
                 'KdPenyakit' => 4,
                 'KdGejala' => 17,
-                'next_first_gejala_id' => 18
+                'next_first_gejala_id' => 19,
             ],
             [
                 'KdPenyakit' => 4,
                 'KdGejala' => 18,
-                'next_first_gejala_id' => null
+                'next_first_gejala_id' => 19,
             ],
         
-            // Kaidah untuk Penyakit Rebah Batang/Semi (ID 5)
+            // Kaidah untuk Penyakit 5
+            // [
+            //     'KdPenyakit' => 5,
+            //     'KdGejala' => 5,
+            //     'next_first_gejala_id' => 20,
+            // ],
             [
                 'KdPenyakit' => 5,
                 'KdGejala' => 19,
-                'next_first_gejala_id' => 20
+                'next_first_gejala_id' => 20,
             ],
             [
                 'KdPenyakit' => 5,
                 'KdGejala' => 20,
-                'next_first_gejala_id' => 5
-            ],
-            [
-                'KdPenyakit' => 5,
-                'KdGejala' => 5,
-                'next_first_gejala_id' => null
+                'next_first_gejala_id' => 21,
             ],
         
-            // Kaidah untuk Penyakit Busuk Kuncup (ID 6)
+            // Kaidah untuk Penyakit 6
+            // [
+            //     'KdPenyakit' => 6,
+            //     'KdGejala' => 20,
+            //     'next_first_gejala_id' => 22,
+            // ],
             [
                 'KdPenyakit' => 6,
                 'KdGejala' => 21,
-                'next_first_gejala_id' => 20
-            ],
-            [
-                'KdPenyakit' => 6,
-                'KdGejala' => 20,
-                'next_first_gejala_id' => 22
+                'next_first_gejala_id' => 23,
             ],
             [
                 'KdPenyakit' => 6,
                 'KdGejala' => 22,
-                'next_first_gejala_id' => null
+                'next_first_gejala_id' => 23,
             ],
         
-            // Kaidah untuk Penyakit Bercak Bakteri (ID 7)
+            // Kaidah untuk Penyakit 7
+            // [
+            //     'KdPenyakit' => 7,
+            //     'KdGejala' => 15,
+            //     'next_first_gejala_id' => 25,
+            // ],
             [
                 'KdPenyakit' => 7,
                 'KdGejala' => 23,
-                'next_first_gejala_id' => 24
+                'next_first_gejala_id' => 25,
             ],
             [
                 'KdPenyakit' => 7,
                 'KdGejala' => 24,
-                'next_first_gejala_id' => 15
-            ],
-            [
-                'KdPenyakit' => 7,
-                'KdGejala' => 15,
-                'next_first_gejala_id' => 25
+                'next_first_gejala_id' => 25,
             ],
             [
                 'KdPenyakit' => 7,
                 'KdGejala' => 25,
-                'next_first_gejala_id' => null
+                'next_first_gejala_id' => 26,
             ],
         
-            // Kaidah untuk Penyakit Virus Kuning (ID 8)
-            [
-                'KdPenyakit' => 8,
-                'KdGejala' => 1,
-                'next_first_gejala_id' => 26
-            ],
+            // Kaidah untuk Penyakit 8
+            // [
+            //     'KdPenyakit' => 8,
+            //     'KdGejala' => 1,
+            //     'next_first_gejala_id' => 30,
+            // ],
             [
                 'KdPenyakit' => 8,
                 'KdGejala' => 26,
-                'next_first_gejala_id' => 27
+                'next_first_gejala_id' => 30,
             ],
             [
                 'KdPenyakit' => 8,
                 'KdGejala' => 27,
-                'next_first_gejala_id' => 28
+                'next_first_gejala_id' => 30,
             ],
             [
                 'KdPenyakit' => 8,
                 'KdGejala' => 28,
-                'next_first_gejala_id' => 29
+                'next_first_gejala_id' => 30,
             ],
             [
                 'KdPenyakit' => 8,
                 'KdGejala' => 29,
-                'next_first_gejala_id' => 30
+                'next_first_gejala_id' => 30,
             ],
             [
                 'KdPenyakit' => 8,
                 'KdGejala' => 30,
-                'next_first_gejala_id' => null
+                'next_first_gejala_id' => 31,
             ],
         
-            // Kaidah untuk Penyakit Virus Keriting (ID 9)
+            // Kaidah untuk Penyakit 9
+            // [
+            //     'KdPenyakit' => 9,
+            //     'KdGejala' => 1,
+            //     'next_first_gejala_id' => 32,
+            // ],
+            // [
+            //     'KdPenyakit' => 9,
+            //     'KdGejala' => 29,
+            //     'next_first_gejala_id' => 32,
+            // ],
             [
                 'KdPenyakit' => 9,
                 'KdGejala' => 31,
-                'next_first_gejala_id' => 32
+                'next_first_gejala_id' => 33,
             ],
             [
                 'KdPenyakit' => 9,
                 'KdGejala' => 32,
-                'next_first_gejala_id' => 1
-            ],
-            [
-                'KdPenyakit' => 9,
-                'KdGejala' => 1,
-                'next_first_gejala_id' => 29
-            ],
-            [
-                'KdPenyakit' => 9,
-                'KdGejala' => 29,
-                'next_first_gejala_id' => null
+                'next_first_gejala_id' => 33,
             ],
         
-            // Kaidah untuk Penyakit Antraknosa (ID 10)
-            [
-                'KdPenyakit' => 10,
-                'KdGejala' => 34,
-                'next_first_gejala_id' => 33
-            ],
+            // Kaidah untuk Penyakit 10
+            // [
+            //     'KdPenyakit' => 10,
+            //     'KdGejala' => 16,
+            //     'next_first_gejala_id' => 34,
+            // ],
+            // [
+            //     'KdPenyakit' => 10,
+            //     'KdGejala' => 27,
+            //     'next_first_gejala_id' => 34,
+            // ],
+            // [
+            //     'KdPenyakit' => 10,
+            //     'KdGejala' => 28,
+            //     'next_first_gejala_id' => 34,
+            // ],
             [
                 'KdPenyakit' => 10,
                 'KdGejala' => 33,
-                'next_first_gejala_id' => 16
+                'next_first_gejala_id' => 37,
             ],
             [
                 'KdPenyakit' => 10,
-                'KdGejala' => 16,
-                'next_first_gejala_id' => 28
-            ],
-            [
-                'KdPenyakit' => 10,
-                'KdGejala' => 28,
-                'next_first_gejala_id' => 27
-            ],
-            [
-                'KdPenyakit' => 10,
-                'KdGejala' => 27,
-                'next_first_gejala_id' => 37
+                'KdGejala' => 34,
+                'next_first_gejala_id' => 37,
             ],
             [
                 'KdPenyakit' => 10,
                 'KdGejala' => 37,
-                'next_first_gejala_id' => null
+                'next_first_gejala_id' => null,
             ],
         ]);
+        
+        
         
         
         

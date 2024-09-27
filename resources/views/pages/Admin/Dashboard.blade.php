@@ -3,7 +3,6 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div>lol</div>
     <div class="card h-full">
         <div class="card-body">
             <h4 class="text-gray-600 text-lg font-semibold mb-6">Recent Transaction</h4>

@@ -34,4 +34,17 @@ class DataPenyakit extends Model
             get: fn ($image) => url('/storage/asset/dataPenyakit/' . $image),
         );
     }
+    public function gejala()
+    {
+        return $this->belongsToMany(DataGejala::class, 'rule', 'penyakit_id', 'gejala_id');
+    }
+
+    public function rule()
+    {
+        return $this->hasMany(Rule::class);
+    }
+    public function diagnosa()
+    {
+        return $this->hasMany(Report::class);
+    }
 }

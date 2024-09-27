@@ -4,20 +4,25 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataGejalaController;
 use App\Http\Controllers\DataPenyakitController;
-use App\Http\Controllers\DiagnosisController;
+use App\Http\Controllers\DiagnosaController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RuleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebPagesController;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('processLogin');
+    Route::get('/register', [AuthController::class, 'registerPage'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('processRegister');
+    
 });
 
 
 Route::get('/', [WebPagesController::class, 'home'])->name('Home');
 Route::get('/diagnosa', [WebPagesController::class, 'diagnosaPage'])->name('Diagnosa');
+
 
 
 Route::middleware('auth')->group(function () {
@@ -42,9 +47,22 @@ Route::middleware('auth')->group(function () {
         });
 
         // Data Aturan
-        Route::get('data-aturan', [RuleController::class, 'index'])->name('data-aturan');
+        Route::prefix('data-aturan')->group(function () {
+            Route::get('/', [RuleController::class, 'index'])->name('data-aturan');
+
+        });
+
+        Route::prefix('laporan-bulanan')->group(function () {
+            Route::get('/', [ReportController::class, 'index'])->name('laporan-bulanan');
+        });
+    });    
+
+    Route::group(['as' => 'diagnosa.'], function () {
+        Route::post('/diagnosis', [DiagnosaController::class, 'diagnosis'])->name('post'); 
+        Route::get('/detail-diagnosa', [UserController::class, 'detailDiagnosis'])->name('detail');
+        Route::get('/get-gejala', [UserController::class, 'getGejala'])->name('getGejala');
+        Route::get('/get-aturan-with-next-gejala', [UserController::class, 'aturanWithNextGejala'])->name('aturanWithNextGejala');
     });
-    Route::get('/diagnosis/start', [DiagnosisController::class, 'getQuestion']);
-    Route::post('/diagnosis/answer', [DiagnosisController::class, 'diagnosis']);
+    
     Route::post('/logout', [AuthController::class, 'logOut'])->name('logout');
 });

@@ -6,16 +6,18 @@ use App\Models\DataGejala;
 use App\Models\DataPenyakit;
 use App\Models\Report;
 use App\Models\Rule;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DiagnosisController extends Controller
+class DiagnosaController extends Controller
 {
     private int $allGejala;
 
     public function __construct()
     {
-        $this->allGejala = DataGejala::count();
+        $this->allGejala = DataGejala::get('id')->count();
     }
 
     private function newDiagnosis(): Report
@@ -27,104 +29,93 @@ class DiagnosisController extends Controller
 
     private function lastDiagnosis(): ?Report
     {
-        return Report::where('user_id', Auth::id())->latest()->first();
+        return Report::where('user_id', Auth::id())->get()->last();
     }
 
     private function checkDiagnosis(int $idGejala): Report
     {
-        $lastDiagnosis = $this->lastDiagnosis();
-
+        $DiagnosaTerakhir = $this->lastDiagnosis();
+    
         if ($idGejala === 1) {
+            // Jika tidak ada diagnosis sebelumnya atau gejala pertama, buat diagnosis baru
             return $this->newDiagnosis();
         }
-
-        if ($lastDiagnosis && $lastDiagnosis->penyakit_id === null) {
-            $answerLog = json_decode($lastDiagnosis->answer_log, true) ?? [];
-            $maxAnswerLog = empty($answerLog) ? 0 : max(array_keys($answerLog));
-
-            if ($maxAnswerLog === $this->allGejala) {
+    
+        if ($DiagnosaTerakhir->id_penyakit === null) {
+            $logJawaban = json_decode($DiagnosaTerakhir->answer_log, true) ?? [];
+            $MaxLogJawaban = max(array_keys($logJawaban));
+    
+            if ($MaxLogJawaban === $this->allGejala) {
                 return $this->newDiagnosis();
             }
-
-            return $lastDiagnosis;
+            return $DiagnosaTerakhir;
         }
-
+    
         return $this->newDiagnosis();
     }
-
-    public function getQuestion(Request $request)
-    {
-        $idGejala = $request->input('idgejala');
-        $gejala = DataGejala::findOrFail($idGejala);
-
-        return response()->json([
-            'question' => "Apakah tanaman cabai Anda menunjukkan gejala: " . $gejala->nama . "?",
-            // 'description' => $gejala->deskripsi
-        ]);
-    }
+    
 
     public function diagnosis(Request $request)
     {
         $request->validate([
-            'idgejala' => ['required', 'integer', 'max:' . $this->allGejala, 'min:1'],
-            'value' => ['required', 'boolean'],
+            'idGejala' => ['required', 'numeric', 'max:' .  $this->allGejala, 'min:1']
         ]);
 
-        $requestFakta = [
-            $request->idgejala => $request->boolean('value')
+        $ReqFakta = [
+            $request->idGejala => filter_var(
+                $request->value, FILTER_VALIDATE_BOOLEAN
+            )
         ];
 
-        $modelDiagnosis = $this->checkDiagnosis((int) $request->idgejala);
-        $answerLog = json_decode($modelDiagnosis->answer_log, true) ?? [];
-        $answerLog = $answerLog + $requestFakta;
-        $modelDiagnosis->answer_log = json_encode($answerLog);
+        $modelDiagnosis = $this->checkDiagnosis((int) $request->idGejala);
+        $logJawaban =json_decode($modelDiagnosis->answer_log, true) ?? [];
+        $logJawaban = $logJawaban + $ReqFakta;
+        $modelDiagnosis->answer_log =json_encode($logJawaban);
         $modelDiagnosis->save();
 
-        // Aturan
-        $rule = Rule::select(['penyakit_id', 'gejala_id'])->get();
-        $aturan = $rule->groupBy('penyakit_id')->map(fn($item) => $item->pluck('gejala_id')->toArray())->toArray();
+        // Aturan Pengikat
+        $aturan = Rule::get(['KdPenyakit', 'KdGejala']);
+        $rules = [];
+        foreach($aturan as $key => $value) {
+            $rules[$value->KdPenyakit] [] = $value->KdGejala;
+        }
 
-        // Basis Fakta
-        $fakta = $answerLog;
+        // Fakta
+        $fakta = $logJawaban;
 
-        // Inferensi
-        $terdeteksi = false;
-        $penyakit = null;
-
-        foreach ($aturan as $penyakitId => $gejala) {
-            $apakahPenyakit = true;
-            foreach ($gejala as $gejalaPenyakit) {
-                $fakta[$gejalaPenyakit] = $fakta[$gejalaPenyakit] ?? false;
-                if (!$fakta[$gejalaPenyakit]) {
-                    $apakahPenyakit = false;
+        // Interfensi pada Sistem
+        $detects = false;
+        foreach ($rules as $KdPenyakit => $KdGejala) {
+            $isVirus = true;
+            foreach( $KdGejala as $ruleGejalaPenyakit) {
+                $fakta[$ruleGejalaPenyakit] = $fakta[$ruleGejalaPenyakit] ?? false;
+                if(!$fakta[$ruleGejalaPenyakit]) {
+                    $isVirus = false;
                     break;
                 }
             }
-            if ($apakahPenyakit) {
-                if ($modelDiagnosis->penyakit_id === null) {
-                    $modelDiagnosis->penyakit_id = $penyakitId;
+            if($isVirus) {
+                if($modelDiagnosis->id_penyakit == null){
+                    $modelDiagnosis->id_penyakit = $KdPenyakit;
                     $modelDiagnosis->save();
                 }
-                $penyakit = DataPenyakit::find($modelDiagnosis->penyakit_id);
-                $terdeteksi = true;
-                break;
+                $penyakit = DataPenyakit::where('id', $modelDiagnosis->id_penyakit)->first('id');
+                $detects =true;
             }
         }
-
-        // Tidak ada penyakit yang terdeteksi
-        if (!$terdeteksi && $request->idgejala == $this->allGejala) {
+        
+        // Tidak Ada Penyakit
+        if (!$detects && $request->idGejala == $this->allGejala) {
             return response()->json([
                 'penyakitUnidentified' => true,
                 'idPenyakit' => null,
                 'idDiagnosis' => $modelDiagnosis->id,
             ]);
         }
-
         return response()->json([
             'idDiagnosis' => $modelDiagnosis->id,
-            'idPenyakit' => $penyakit?->id,
-            'namaPenyakit' => $penyakit?->nama,
-            'deskripsiPenyakit' => $penyakit?->deskripsi,
+            'idPenyakit' => $penyakit ?? null
         ]);
+
     }
 }

@@ -41,10 +41,9 @@
                                 >
                                     Design and Developed by
                                     <a
-                                        href="https://adminmart.com/"
                                         target="_blank"
                                         class="text-blue-600 underline hover:text-blue-700"
-                                        >AdminMart.com</a
+                                        ></a
                                     >
                                 </p>
                             </footer>
@@ -65,5 +64,6 @@
 
         <script src="./assets/libs/apexcharts/dist/apexcharts.min.js"></script>
         <script src="{{asset('js/dashboard.js')}}"></script> --}}
+        @stack('scripts')
     </body>
 </html>

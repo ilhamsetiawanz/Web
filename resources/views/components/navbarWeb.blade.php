@@ -10,9 +10,9 @@
     </div>
     <!-- Navbar Links -->
     <nav class="hidden md:flex space-x-4">
-        <a href="#" class="hover:text-gray-700">Home</a>
+        <a href="{{route ('Home')}}" class="hover:text-gray-700">Home</a>
         <a href="#" class="hover:text-gray-700">Artikel</a>
-        <a href="#" class="hover:text-gray-700">Diagnosa</a>
+        <a href="{{route ('Diagnosa')}}" class="hover:text-gray-700">Diagnosa</a>
     </nav>
     <div class="hidden md:flex space-x-4">
         @if (Auth::check())
@@ -52,9 +52,9 @@
 <!-- Mobile Menu -->
 <div id="menu" class="hidden md:hidden bg-white shadow-lg">
     <nav class="px-6 py-4 space-y-2">
-        <a href="#" class="block text-gray-700 hover:text-gray-900">Home</a>
+        <a href="{{route ('Home')}}" class="block text-gray-700 hover:text-gray-900">Home</a>
         <a href="#" class="block text-gray-700 hover:text-gray-900">Artikel</a>
-        <a href="#" class="block text-gray-700 hover:text-gray-900">Diagnosa</a>
+        <a href="{{route ('Diagnosa')}}" class="block text-gray-700 hover:text-gray-900">Diagnosa</a>
         <div class="space-y-2 mt-4">
             @if (Auth::check())
             <div class="flex flex-col gap-3">

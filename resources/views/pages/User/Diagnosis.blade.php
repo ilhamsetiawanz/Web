@@ -118,7 +118,7 @@
 
                     const { value: jawaban, dismiss: dismissReason } = await Swal.fire({
                         title: 'Pertanyaan ' + (i + 1),
-                        imageUrl: `${this.assetStorageGejala}/${element.image}`,
+                        imageUrl: `${element.image}`,
                         imageHeight: '300px',
                         imageAlt: `Gambar Gejala ${element.name}`,
                         text: 'Apakah ' + element.name + '?',

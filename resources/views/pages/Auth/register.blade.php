@@ -13,7 +13,7 @@
                 @csrf
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-semibold mb-2 text-gray-600">Name</label>
-                    <input type="text" id="name" name="name" value="{{ old('name') }}" required
+                    <input type="text" id="name" name="name" required
                         class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-600 focus:ring-0 @error('name') border-red-500 @enderror">
                     @error('name')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-semibold mb-2 text-gray-600">Email</label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}" required
+                    <input type="email" id="email" name="email" required
                         class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-600 focus:ring-0 @error('email') border-red-500 @enderror">
                     @error('email')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

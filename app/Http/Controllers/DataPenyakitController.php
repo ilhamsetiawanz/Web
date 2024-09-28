@@ -99,12 +99,12 @@ class DataPenyakitController extends Controller
         if ($request->hasFile('image')) {
             // Delete old image if it exists
             if ($dataPenyakit->image) {
-                Storage::delete('public/asset/dataGejala' . $dataPenyakit->image);
+                Storage::delete('public/asset/dataPenyakit' . $dataPenyakit->image);
             }
     
             // Upload new image
             $image = $request->file('image');
-            $image->storeAs('public/asset/dataGejala', $image->hashName());
+            $image->storeAs('public/asset/dataPenyakit', $image->hashName());
             $imageName = $image->hashName();
         } else {
             // Keep the existing image if no new image is uploaded

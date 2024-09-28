@@ -20,7 +20,7 @@
                 {{$data->solution}}
             </p>
         </div>
-        <img src="path-to-image.jpg" alt="Tanaman dengan {{ $data->NamaPenyakit }}" class="mt-4 rounded shadow w-1/2">
+        <img src="{{ $data->image }}" alt="Tanaman dengan {{ $data->NamaPenyakit }}" class="mt-4 rounded shadow w-1/2">
     </div>
     @endforeach
 </div>

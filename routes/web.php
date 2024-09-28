@@ -5,7 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataGejalaController;
 use App\Http\Controllers\DataPenyakitController;
 use App\Http\Controllers\DiagnosaController;
+use App\Http\Controllers\PetaniController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReportHistory;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebPagesController;
@@ -63,6 +65,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/get-gejala', [UserController::class, 'getGejala'])->name('getGejala');
         Route::get('/get-aturan-with-next-gejala', [UserController::class, 'aturanWithNextGejala'])->name('aturanWithNextGejala');
     });
-    
+    Route::prefix('profile')->group(function() {
+        Route::get('/', [PetaniController::class, 'petaniView'])->name('profile');
+        Route::get('/hasil-diagnosa', [ReportHistory::class, 'GetHistoryUser'])->name('history.get');
+    });  
     Route::post('/logout', [AuthController::class, 'logOut'])->name('logout');
 });

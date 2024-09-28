@@ -45,7 +45,7 @@
                                     @if ($data->id_penyakit == $teridentifikasi->id)
                                         <span>
                                             {{$teridentifikasi->NamaPenyakit}}
-                                        </span>
+                                        </span>                                        
                                     @endif
                                 @endforeach
                             </td>

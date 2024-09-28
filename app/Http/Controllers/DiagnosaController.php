@@ -15,11 +15,13 @@ class DiagnosaController extends Controller
 {
     private int $allGejala;
 
+    // Mengambil Semua Gejala
     public function __construct()
     {
-        $this->allGejala = DataGejala::get('id')->count();
+        $this->allGejala = DataGejala::get('id')->count(); // Mengambil Gejala ID Kemudian Menghitungnya
     }
 
+    //  Membuat Diagnosa baru
     private function newDiagnosis(): Report
     {
         $modelDiagnosis = new Report();
@@ -27,6 +29,7 @@ class DiagnosaController extends Controller
         return $modelDiagnosis;
     }
 
+    //  Diagnosa terakhir
     private function lastDiagnosis(): ?Report
     {
         return Report::where('user_id', Auth::id())->get()->last();

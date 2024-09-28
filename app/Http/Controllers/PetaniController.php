@@ -5,62 +5,45 @@ namespace App\Http\Controllers;
 use App\Models\Petani;
 use App\Http\Requests\StorePetaniRequest;
 use App\Http\Requests\UpdatePetaniRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class PetaniController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function petaniView(){
+        return view('Pages.User.Profile');
+    }
+    public function petani()
     {
-        //
+        $user = Auth::user();
+        $petaniProfile = Petani::where('idUsers', $user->id)->first();
+
+        $provinsi = $this->getProvinces();
+        $kabupaten = $this->getRegencies();
+        
+        $data = [
+            'user' => $user,
+            'petaniProfile' => $petaniProfile,
+            'provinsi' => $provinsi,
+            'kabupaten' => $kabupaten,
+        ];
+        return response()->json();
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getProvinces()
     {
-        //
+        $response = Http::get('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json');
+        return $response->json();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePetaniRequest $request)
+    public function getRegencies($provinceId = null)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Petani $petani)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Petani $petani)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePetaniRequest $request, Petani $petani)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Petani $petani)
-    {
-        //
+        if ($provinceId) {
+            $response = Http::get("https://www.emsifa.com/api-wilayah-indonesia/api/regencies/{$provinceId}.json");
+        } else {
+            $response = Http::get('https://www.emsifa.com/api-wilayah-indonesia/api/regencies.json');
+        }
+        return $response->json();
     }
 }

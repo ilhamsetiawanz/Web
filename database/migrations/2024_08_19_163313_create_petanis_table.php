@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('petanis', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('NamaPetani');
             $table->string('AlamatPetani');
-            $table->string('NoTelpPetani');
-            $table->string('image');
             $table->foreignId('idUsers')->constrained('users')->cascadeOnDelete();
+            $table->string('kota')->nullable();
+            $table->string('provinsi')->nullable();
             $table->timestamps();
         });
     }

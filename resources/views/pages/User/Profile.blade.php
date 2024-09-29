@@ -1,11 +1,15 @@
 @extends('layouts.weblayouts')
 @section('title', 'Profile')
+@section('profile-info')
+  @include('components.User.user-profile')    
+@endsection
 @section('body')
-    <div>
-        <p>
-        </p>
+    <div class="mt-5 mb-6">
+      <h3 class="text-2xl font-bold">
+        Laporan Hasil Diangosa
+      </h3>
     </div>
-    <div class="bg-white">
+    <div class="bg-white rounded">
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
@@ -36,8 +40,10 @@
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js"></script>
 <script>
 $(document).ready(function(){
+  moment.locale('id');
   // Membuat AJAX request ke server untuk mendapatkan history user
   $.ajax({
     url: "{{ route('history.get') }}",  // Ubah sesuai dengan route yang benar
@@ -53,14 +59,17 @@ $(document).ready(function(){
           var row = `
             <tr>
               <td class="px-6 py-4">${index + 1}</td>
-              <td class="px-6 py-4">${moment(item.created_at).format('ddd MMM YYYY')}</td>
+              <td class="px-6 py-4">${moment(item.created_at).format('dddd, D MMMM YYYY')}</td>
               <td class="px-6 py-4">
                 ${penyakit.find(p => p.id === item.id_penyakit)?.NamaPenyakit || 'Tidak diketahui'}
               </td>
               <td class="px-6 py-4">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                  Detail
+                <button class="flex items-center border border-blue-500 hover:border-blue-700 text-blue-500 hover:text-blue-700 font-bold py-2 px-4 rounded transition duration-300">
+                  <span class="material-symbols-outlined">
+                    visibility
+                  </span>
                 </button>
+
               </td>
             </tr>
           `;

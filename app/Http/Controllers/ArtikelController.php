@@ -13,7 +13,8 @@ class ArtikelController extends Controller
      */
     public function index()
     {
-        //
+        $artikel = Artikel::paginate(10);
+        return view('pages.Admin.Artikel.Artikel', compact('artikel'));
     }
 
     /**

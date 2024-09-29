@@ -17,6 +17,7 @@
 
     <!-- Hero Section -->
     @yield('heroJumbotron')
+    @yield('profile-info')
 
     <!-- Content Section -->
     <section class="container mx-auto py-10 px-6">
@@ -44,7 +45,7 @@
             menu.classList.toggle('hidden');
         });
         const assetStorageGejala = 'path/to/gejala/assets'; // Ganti dengan path yang sesuai
-        const csrfToken = $('meta[name="csrf-token"]').attr('content'); // Ambil token CSRF dari meta tag
+        const csrfToken = ('meta[name="csrf-token"]').attr('content'); // Ambil token CSRF dari meta tag
 
         const diagnosisModal = new DiagnosisModal(assetStorageGejala, csrfToken);
     </script>

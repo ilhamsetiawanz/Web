@@ -179,7 +179,7 @@
             // Jika penyakit teridentifikasi
             Swal.fire({
                 title: 'Penyakit Teridentifikasi',
-                text: 'Penyakit yang teridentifikasi adalah: ' + response.idPenyakit, // Menampilkan nama penyakit
+                text: 'Penyakit yang teridentifikasi dengan Kode Penyakit: P1' + response.idPenyakit.id, // Menampilkan nama penyakit
                 icon: 'success',
             });
             console.log(response)

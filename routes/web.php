@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataGejalaController;
 use App\Http\Controllers\DataPenyakitController;
@@ -57,13 +58,19 @@ Route::middleware('auth')->group(function () {
         Route::prefix('laporan-bulanan')->group(function () {
             Route::get('/', [ReportController::class, 'index'])->name('laporan-bulanan');
         });
+
+        // Data Artikel
+        Route::prefix('data-artikel')->group(function () {
+            Route::get('/', [ArtikelController::class, 'index'])->name('data-artikel');
+        });
     });    
 
     Route::group(['as' => 'diagnosa.'], function () {
         Route::post('/diagnosis', [DiagnosaController::class, 'diagnosis'])->name('post'); 
-        Route::get('/detail-diagnosa', [UserController::class, 'detailDiagnosis'])->name('detail');
+        Route::get('/detail-diagnosis', [UserController::class, 'detailDiagnosis'])->name('detailDiagnosis');
         Route::get('/get-gejala', [UserController::class, 'getGejala'])->name('getGejala');
         Route::get('/get-aturan-with-next-gejala', [UserController::class, 'aturanWithNextGejala'])->name('aturanWithNextGejala');
+        // Route::get('/detailDiagnosis', UserController::class, 'detailDiagnosis')->name('details')
     });
     Route::prefix('profile')->group(function() {
         Route::get('/', [PetaniController::class, 'petaniView'])->name('profile');

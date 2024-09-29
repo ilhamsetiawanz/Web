@@ -124,4 +124,9 @@ class UserController extends Controller
 
         return response()->json($aturanMap);
     }
+
+    // public function showDetailDiagnosa (Report $report)
+    // {
+    //     $report = Report::get
+    // }
 }

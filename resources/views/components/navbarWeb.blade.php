@@ -18,7 +18,7 @@
         @if (Auth::check())
             <div class="flex justify-between items-center gap-5">
                 <div>
-                    <a class="flex gap-1" href="">
+                    <a class="flex gap-1" href="{{route ('profile')}}">
                         <span class="material-symbols-outlined">
                             person
                         </span>
@@ -59,7 +59,7 @@
             @if (Auth::check())
             <div class="flex flex-col gap-3">
                 <div>
-                    <a class="flex items-center space-x-2 border-2 border-black text-black px-4 py-2 rounded hover:bg-gray-100" href="">
+                    <a class="flex items-center space-x-2 border-2 border-black text-black px-4 py-2 rounded hover:bg-gray-100" href="{{route ('profile')}}">
                         <span class="material-symbols-outlined">
                             person
                         </span>
@@ -80,7 +80,7 @@
             </div>
             @else
                 <a href="{{ route('login') }}">
-                    <button class="flex items-center space-x-2 border-2 border-black text-black px-4 py-2 rounded hover:bg-gray-100">
+                    <button class="w-full flex items-center space-x-2 border-2 border-black text-black px-4 py-2 rounded hover:bg-gray-100">
                         <span class="material-symbols-outlined">
                             login
                         </span>

@@ -22,13 +22,15 @@ class ReportHistory extends Controller
         
         // Mengambil semua data penyakit
         $penyakit = DataPenyakit::all();
+        $totalLaporan = Report::where('user_id', $user->id)->count();
 
         // Format JSON untuk response
         return response()->json([
             'status' => 'success',
             'data' => [
                 'laporan' => $laporan,
-                'penyakit' => $penyakit
+                'penyakit' => $penyakit,
+                'totalLaporan' => $totalLaporan
             ]
         ]);
     }

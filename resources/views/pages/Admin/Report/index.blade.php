@@ -41,13 +41,30 @@
                                 @endforeach
                             </td>
                             <td class="p-4">
+                                @php
+                                    $found = false;
+                                @endphp
+                                
                                 @foreach ($penyakit as $teridentifikasi)
                                     @if ($data->id_penyakit == $teridentifikasi->id)
-                                        <span>
-                                            {{$teridentifikasi->NamaPenyakit}}
-                                        </span>                                        
+                                        <span>{{$teridentifikasi->NamaPenyakit}}</span>
+                                        @php
+                                            $found = true;
+                                            break; // keluar dari loop karena sudah ditemukan
+                                        @endphp
+                                    @elseif ($data->id_penyakit == null)
+                                        <span>Penyakit Tidak Diketahui</span>
+                                        @php
+                                            $found = true;
+                                            break; // keluar dari loop karena id_penyakit kosong
+                                        @endphp
                                     @endif
                                 @endforeach
+                                
+                                @if (!$found)
+                                    <span>Penyakit Tidak Teridentifikasi</span>
+                                @endif
+                            
                             </td>
                             <td class="p-4">
                                 <span class="font-semibold text-base text-gray-600">

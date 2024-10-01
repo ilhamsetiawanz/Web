@@ -131,6 +131,7 @@
                         allowOutsideClick: false,
                         allowEscapeKey: false,
                         allowEnterKey: false,
+                        customClass: 'w-full h-full',
                         reverseButtons: true,
                     });
 
@@ -179,7 +180,7 @@
             // Jika penyakit teridentifikasi
             Swal.fire({
                 title: 'Penyakit Teridentifikasi',
-                text: 'Penyakit yang teridentifikasi dengan Kode Penyakit: P1' + response.idPenyakit.id, // Menampilkan nama penyakit
+                text: 'Penyakit yang teridentifikasi dengan Kode Penyakit: P' + response.idPenyakit.id, // Menampilkan nama penyakit
                 icon: 'success',
             });
             console.log(response)

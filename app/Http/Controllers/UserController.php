@@ -125,8 +125,11 @@ class UserController extends Controller
         return response()->json($aturanMap);
     }
 
-    // public function showDetailDiagnosa (Report $report)
-    // {
-    //     $report = Report::get
-    // }
+    public function getAturanGejala()
+    {
+        $aturanGejala = Rule::select([
+            'KdPenyakit',
+            'KdGejala',
+        ]);
+    }
 }

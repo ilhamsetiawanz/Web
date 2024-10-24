@@ -17,7 +17,8 @@ class DataGejala extends Model
      */
     protected $fillable = [
         'name',
-        'image'
+        'image',
+        'jenis_gejala'
     ];
     /**
      * image

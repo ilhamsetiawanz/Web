@@ -37,44 +37,44 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DataGejala::insert([
-        ["name" => "Daun menguning"],
-        ["name" => "Batang membusuk"],
-        ["name" => "Pucatnya tulang-tulang daun bagian atas"],
-        ["name" => "Terkulainya tangkai daun"],
-        ["name" => "Tanaman menjadi layu"],
-        ["name" => "Tanaman mati"],
-        ["name" => "Bercak coklat pada jaringan pembuluh batang"],
-        ["name" => "Bercak coklat pada pembuluh akar"],
-        ["name" => "Warna buah cabai menjadi kekuningan dan busuk"],
-        ["name" => "Bagian bawah daun layu"],
-        ["name" => "Tulang daun berwarna kuning"],
-        ["name" => "Bercak pada daun berwarna pucat sampai putih"],
-        ["name" => "Tanaman tumbuh kerdil"],
-        ["name" => "Bercak coklat kehitaman pada buah"],
-        ["name" => "Daun gugur"],
-        ["name" => "Bercak kecil bulat yang kering pada daun"],
-        ["name" => "Daun berlubang akibat bercak"],
-        ["name" => "Tangkai daun berwarna kuning"],
-        ["name" => "Pangkal batang berwarna coklat"],
-        ["name" => "Busuk di bagian pangkal batang"],
-        ["name" => "Ranting atau tangkai berwarna coklat kehitaman"],
-        ["name" => "Spora cendawan berwarna kelabu terlihat"],
-        ["name" => "Bercak kecoklatan pada daun"],
-        ["name" => "Bercak putih yang dikelilingi warna coklat kehitaman pada buah"],
-        ["name" => "Buah gugur"],
-        ["name" => "Penggumpalan pada daun"],
-        ["name" => "Daun kecil"],
-        ["name" => "Buah kecil dan tidak normal"],
-        ["name" => "Pertumbuhan terlambat"],
-        ["name" => "Kekeringan pada daun"],
-        ["name" => "Daun menggulung ke arah atas atau bawah, sering keriput atau melengkung"],
-        ["name" => "Penurunan kualitas buah"],
-        ["name" => "Lesi pada batang dan cabang"],
-        ["name" => "Daun menghitam"],
-        ["name" => "Bercak pada buah"],
-        ["name" => "Bentuk buah yang tidak normal"],
-        ["name" => "Daun kering"],
-        ["name" => "Kehilangan kualitas buah"],
+            ["name" => "Daun menguning", "jenis_gejala" => "Daun"],
+            ["name" => "Batang membusuk", "jenis_gejala" => "Batang"],
+            ["name" => "Pucatnya tulang-tulang daun bagian atas", "jenis_gejala" => "Daun"],
+            ["name" => "Terkulainya tangkai daun", "jenis_gejala" => "Daun"],
+            ["name" => "Tanaman menjadi layu", "jenis_gejala" => "Lainnya"],
+            ["name" => "Tanaman mati", "jenis_gejala" => "Lainnya"],
+            ["name" => "Bercak coklat pada jaringan pembuluh batang", "jenis_gejala" => "Batang"],
+            ["name" => "Bercak coklat pada pembuluh akar", "jenis_gejala" => "Akar"],
+            ["name" => "Warna buah cabai menjadi kekuningan dan busuk", "jenis_gejala" => "Buah"],
+            ["name" => "Bagian bawah daun layu", "jenis_gejala" => "Daun"],
+            ["name" => "Tulang daun berwarna kuning", "jenis_gejala" => "Daun"],
+            ["name" => "Bercak pada daun berwarna pucat sampai putih", "jenis_gejala" => "Daun"],
+            ["name" => "Tanaman tumbuh kerdil", "jenis_gejala" => "Lainnya"],
+            ["name" => "Bercak coklat kehitaman pada buah", "jenis_gejala" => "Buah"],
+            ["name" => "Daun gugur", "jenis_gejala" => "Daun"],
+            ["name" => "Bercak kecil bulat yang kering pada daun", "jenis_gejala" => "Daun"],
+            ["name" => "Daun berlubang akibat bercak", "jenis_gejala" => "Daun"],
+            ["name" => "Tangkai daun berwarna kuning", "jenis_gejala" => "Daun"],
+            ["name" => "Pangkal batang berwarna coklat", "jenis_gejala" => "Batang"],
+            ["name" => "Busuk di bagian pangkal batang", "jenis_gejala" => "Batang"],
+            ["name" => "Ranting atau tangkai berwarna coklat kehitaman", "jenis_gejala" => "Batang"],
+            ["name" => "Spora cendawan berwarna kelabu terlihat", "jenis_gejala" => "Lainnya"],
+            ["name" => "Bercak kecoklatan pada daun", "jenis_gejala" => "Daun"],
+            ["name" => "Bercak putih yang dikelilingi warna coklat kehitaman pada buah", "jenis_gejala" => "Buah"],
+            ["name" => "Buah gugur", "jenis_gejala" => "Buah"],
+            ["name" => "Penggumpalan pada daun", "jenis_gejala" => "Daun"],
+            ["name" => "Daun kecil", "jenis_gejala" => "Daun"],
+            ["name" => "Buah kecil dan tidak normal", "jenis_gejala" => "Buah"],
+            ["name" => "Pertumbuhan terlambat", "jenis_gejala" => "Lainnya"],
+            ["name" => "Kekeringan pada daun", "jenis_gejala" => "Daun"],
+            ["name" => "Daun menggulung ke arah atas atau bawah, sering keriput atau melengkung", "jenis_gejala" => "Daun"],
+            ["name" => "Penurunan kualitas buah", "jenis_gejala" => "Buah"],
+            ["name" => "Lesi pada batang dan cabang", "jenis_gejala" => "Batang"],
+            ["name" => "Daun menghitam", "jenis_gejala" => "Daun"],
+            ["name" => "Bercak pada buah", "jenis_gejala" => "Buah"],
+            ["name" => "Bentuk buah yang tidak normal", "jenis_gejala" => "Buah"],
+            ["name" => "Daun kering", "jenis_gejala" => "Daun"],
+            ["name" => "Kehilangan kualitas buah", "jenis_gejala" => "Buah"],
         ]);
 
 
@@ -92,255 +92,71 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Rule::insert([
-            // Kaidah untuk Penyakit 1
-            [
-                'KdPenyakit' => 1,
-                'KdGejala' => 1,
-                'next_first_gejala_id' => 5,
-            ],
-            [
-                'KdPenyakit' => 1,
-                'KdGejala' => 2,
-                'next_first_gejala_id' => 5,
-            ],
-            [
-                'KdPenyakit' => 1,
-                'KdGejala' => 3,
-                'next_first_gejala_id' => 5,
-            ],
-            [
-                'KdPenyakit' => 1,
-                'KdGejala' => 4,
-                'next_first_gejala_id' => 5,
-            ],
-            [
-                'KdPenyakit' => 1,
-                'KdGejala' => 5,
-                'next_first_gejala_id' => 6,
-            ],
-        
-            // Kaidah untuk Penyakit 2
-            // [
-            //     'KdPenyakit' => 2,
-            //     'KdGejala' => 5,
-            //     'next_first_gejala_id' => 9,
-            // ],
-            [
-                'KdPenyakit' => 2,
-                'KdGejala' => 6,
-                'next_first_gejala_id' => 9,
-            ],
-            [
-                'KdPenyakit' => 2,
-                'KdGejala' => 7,
-                'next_first_gejala_id' => 9,
-            ],
-            [
-                'KdPenyakit' => 2,
-                'KdGejala' => 8,
-                'next_first_gejala_id' => 9,
-            ],
-            // [
-            //     'KdPenyakit' => 2,
-            //     'KdGejala' => 9,
-            //     'next_first_gejala_id' => 10,
-            // ],
-        
-            // Kaidah untuk Penyakit 3
-            [
-                'KdPenyakit' => 3,
-                'KdGejala' => 10,
-                'next_first_gejala_id' => 15,
-            ],
-            [
-                'KdPenyakit' => 3,
-                'KdGejala' => 11,
-                'next_first_gejala_id' => 15,
-            ],
-            [
-                'KdPenyakit' => 3,
-                'KdGejala' => 12,
-                'next_first_gejala_id' => 15,
-            ],
-            [
-                'KdPenyakit' => 3,
-                'KdGejala' => 13,
-                'next_first_gejala_id' => 15,
-            ],
-            [
-                'KdPenyakit' => 3,
-                'KdGejala' => 14,
-                'next_first_gejala_id' => 15,
-            ],
-        
-            // Kaidah untuk Penyakit 4
-            // [
-            //     'KdPenyakit' => 4,
-            //     'KdGejala' => 1,
-            //     'next_first_gejala_id' => 18,
-            // ],
-            [
-                'KdPenyakit' => 4,
-                'KdGejala' => 15,
-                'next_first_gejala_id' => 19,
-            ],
-            [
-                'KdPenyakit' => 4,
-                'KdGejala' => 16,
-                'next_first_gejala_id' => 19,
-            ],
-            [
-                'KdPenyakit' => 4,
-                'KdGejala' => 17,
-                'next_first_gejala_id' => 19,
-            ],
-            [
-                'KdPenyakit' => 4,
-                'KdGejala' => 18,
-                'next_first_gejala_id' => 19,
-            ],
-        
-            // Kaidah untuk Penyakit 5
-            // [
-            //     'KdPenyakit' => 5,
-            //     'KdGejala' => 5,
-            //     'next_first_gejala_id' => 20,
-            // ],
-            [
-                'KdPenyakit' => 5,
-                'KdGejala' => 19,
-                'next_first_gejala_id' => 20,
-            ],
-            [
-                'KdPenyakit' => 5,
-                'KdGejala' => 20,
-                'next_first_gejala_id' => 21,
-            ],
-        
-            // Kaidah untuk Penyakit 6
-            // [
-            //     'KdPenyakit' => 6,
-            //     'KdGejala' => 20,
-            //     'next_first_gejala_id' => 22,
-            // ],
-            [
-                'KdPenyakit' => 6,
-                'KdGejala' => 21,
-                'next_first_gejala_id' => 23,
-            ],
-            [
-                'KdPenyakit' => 6,
-                'KdGejala' => 22,
-                'next_first_gejala_id' => 23,
-            ],
-        
-            // Kaidah untuk Penyakit 7
-            // [
-            //     'KdPenyakit' => 7,
-            //     'KdGejala' => 15,
-            //     'next_first_gejala_id' => 25,
-            // ],
-            [
-                'KdPenyakit' => 7,
-                'KdGejala' => 23,
-                'next_first_gejala_id' => 25,
-            ],
-            [
-                'KdPenyakit' => 7,
-                'KdGejala' => 24,
-                'next_first_gejala_id' => 25,
-            ],
-            [
-                'KdPenyakit' => 7,
-                'KdGejala' => 25,
-                'next_first_gejala_id' => 26,
-            ],
-        
-            // Kaidah untuk Penyakit 8
-            // [
-            //     'KdPenyakit' => 8,
-            //     'KdGejala' => 1,
-            //     'next_first_gejala_id' => 30,
-            // ],
-            [
-                'KdPenyakit' => 8,
-                'KdGejala' => 26,
-                'next_first_gejala_id' => 30,
-            ],
-            [
-                'KdPenyakit' => 8,
-                'KdGejala' => 27,
-                'next_first_gejala_id' => 30,
-            ],
-            [
-                'KdPenyakit' => 8,
-                'KdGejala' => 28,
-                'next_first_gejala_id' => 30,
-            ],
-            [
-                'KdPenyakit' => 8,
-                'KdGejala' => 29,
-                'next_first_gejala_id' => 30,
-            ],
-            [
-                'KdPenyakit' => 8,
-                'KdGejala' => 30,
-                'next_first_gejala_id' => 31,
-            ],
-        
-            // Kaidah untuk Penyakit 9
-            // [
-            //     'KdPenyakit' => 9,
-            //     'KdGejala' => 1,
-            //     'next_first_gejala_id' => 32,
-            // ],
-            // [
-            //     'KdPenyakit' => 9,
-            //     'KdGejala' => 29,
-            //     'next_first_gejala_id' => 32,
-            // ],
-            [
-                'KdPenyakit' => 9,
-                'KdGejala' => 31,
-                'next_first_gejala_id' => 33,
-            ],
-            [
-                'KdPenyakit' => 9,
-                'KdGejala' => 32,
-                'next_first_gejala_id' => 33,
-            ],
-        
-            // Kaidah untuk Penyakit 10
-            // [
-            //     'KdPenyakit' => 10,
-            //     'KdGejala' => 16,
-            //     'next_first_gejala_id' => 34,
-            // ],
-            // [
-            //     'KdPenyakit' => 10,
-            //     'KdGejala' => 27,
-            //     'next_first_gejala_id' => 34,
-            // ],
-            // [
-            //     'KdPenyakit' => 10,
-            //     'KdGejala' => 28,
-            //     'next_first_gejala_id' => 34,
-            // ],
-            [
-                'KdPenyakit' => 10,
-                'KdGejala' => 33,
-                'next_first_gejala_id' => 37,
-            ],
-            [
-                'KdPenyakit' => 10,
-                'KdGejala' => 34,
-                'next_first_gejala_id' => 37,
-            ],
-            [
-                'KdPenyakit' => 10,
-                'KdGejala' => 37,
-                'next_first_gejala_id' => null,
-            ],
+            // Penyakit 1
+            ['KdPenyakit' => 1, 'KdGejala' => 1],
+            ['KdPenyakit' => 1, 'KdGejala' => 2],
+            ['KdPenyakit' => 1, 'KdGejala' => 3],
+            ['KdPenyakit' => 1, 'KdGejala' => 4],
+            ['KdPenyakit' => 1, 'KdGejala' => 5],
+            
+            // Penyakit 2
+            ['KdPenyakit' => 2, 'KdGejala' => 5],
+            ['KdPenyakit' => 2, 'KdGejala' => 6],
+            ['KdPenyakit' => 2, 'KdGejala' => 7],
+            ['KdPenyakit' => 2, 'KdGejala' => 8],
+            ['KdPenyakit' => 2, 'KdGejala' => 9],
+            
+            // Penyakit 3
+            ['KdPenyakit' => 3, 'KdGejala' => 10],
+            ['KdPenyakit' => 3, 'KdGejala' => 11],
+            ['KdPenyakit' => 3, 'KdGejala' => 12],
+            ['KdPenyakit' => 3, 'KdGejala' => 13],
+            ['KdPenyakit' => 3, 'KdGejala' => 14],
+            
+            // Penyakit 4
+            ['KdPenyakit' => 4, 'KdGejala' => 1],
+            ['KdPenyakit' => 4, 'KdGejala' => 15],
+            ['KdPenyakit' => 4, 'KdGejala' => 16],
+            ['KdPenyakit' => 4, 'KdGejala' => 17],
+            ['KdPenyakit' => 4, 'KdGejala' => 18],
+            
+            // Penyakit 5
+            ['KdPenyakit' => 5, 'KdGejala' => 5],
+            ['KdPenyakit' => 5, 'KdGejala' => 19],
+            ['KdPenyakit' => 5, 'KdGejala' => 20],
+            
+            // Penyakit 6
+            ['KdPenyakit' => 6, 'KdGejala' => 20],
+            ['KdPenyakit' => 6, 'KdGejala' => 21],
+            ['KdPenyakit' => 6, 'KdGejala' => 22],
+            
+            // Penyakit 7
+            ['KdPenyakit' => 7, 'KdGejala' => 15],
+            ['KdPenyakit' => 7, 'KdGejala' => 23],
+            ['KdPenyakit' => 7, 'KdGejala' => 24],
+            ['KdPenyakit' => 7, 'KdGejala' => 25],
+            
+            // Penyakit 8
+            ['KdPenyakit' => 8, 'KdGejala' => 1],
+            ['KdPenyakit' => 8, 'KdGejala' => 26],
+            ['KdPenyakit' => 8, 'KdGejala' => 27],
+            ['KdPenyakit' => 8, 'KdGejala' => 28],
+            ['KdPenyakit' => 8, 'KdGejala' => 29],
+            ['KdPenyakit' => 8, 'KdGejala' => 30],
+            
+            // Penyakit 9
+            ['KdPenyakit' => 9, 'KdGejala' => 1],
+            ['KdPenyakit' => 9, 'KdGejala' => 29],
+            ['KdPenyakit' => 9, 'KdGejala' => 31],
+            ['KdPenyakit' => 9, 'KdGejala' => 32],
+            
+            // Penyakit 10
+            ['KdPenyakit' => 10, 'KdGejala' => 16],
+            ['KdPenyakit' => 10, 'KdGejala' => 27],
+            ['KdPenyakit' => 10, 'KdGejala' => 28],
+            ['KdPenyakit' => 10, 'KdGejala' => 33],
+            ['KdPenyakit' => 10, 'KdGejala' => 34],
+            ['KdPenyakit' => 10, 'KdGejala' => 37],
         ]);
     }
 }

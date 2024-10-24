@@ -64,14 +64,12 @@ class DiagnosaController extends Controller
     {
         // Validasi input request: idGejala harus ada, berupa angka, dengan nilai maksimal sesuai total gejala yang ada, minimal 1
         $request->validate([
-            'idGejala' => ['required', 'numeric', 'max:' .  $this->allGejala, 'min:1']
+            'idGejala' => ['required', 'numeric', 'max:' . $this->allGejala, 'min:1']
         ]);
     
         // Menginisialisasi array fakta dengan key idGejala dan value yang di-filter apakah benar atau salah (boolean)
         $ReqFakta = [
-            $request->idGejala => filter_var(
-                $request->value, FILTER_VALIDATE_BOOLEAN
-            )
+            $request->idGejala => filter_var($request->value, FILTER_VALIDATE_BOOLEAN)
         ];
     
         // Mendapatkan model diagnosis berdasarkan idGejala yang dikonversi ke integer
@@ -103,23 +101,23 @@ class DiagnosaController extends Controller
     
         // Variabel untuk mendeteksi apakah penyakit ditemukan atau tidak
         $detects = false;
-    
+        $matchedSymptoms = 0;
+
         // Melakukan pengecekan terhadap setiap rule penyakit dan gejalanya
         foreach ($rules as $KdPenyakit => $KdGejala) {
-            $isVirus = true; // Inisialisasi flag apakah penyakit ini terdeteksi
+            $matchedSymptoms = 0;
             foreach ($KdGejala as $ruleGejalaPenyakit) {
                 // Jika gejala tidak ada dalam fakta, set default ke false
                 $fakta[$ruleGejalaPenyakit] = $fakta[$ruleGejalaPenyakit] ?? false;
     
-                // Jika ada gejala yang tidak cocok (false), set isVirus ke false dan keluar dari loop
-                if (!$fakta[$ruleGejalaPenyakit]) {
-                    $isVirus = false;
-                    break;
+                // Jika gejala cocok, tambahkan ke hitungan gejala yang cocok
+                if ($fakta[$ruleGejalaPenyakit]) {
+                    $matchedSymptoms++;
                 }
             }
     
-            // Jika penyakit terdeteksi (semua gejala cocok)
-            if ($isVirus) {
+            // Jika penyakit terdeteksi (minimal 3 gejala cocok)
+            if ($matchedSymptoms >= 3) {
                 // Jika id_penyakit belum diset pada model, set dengan KdPenyakit yang ditemukan
                 if ($modelDiagnosis->id_penyakit == null) {
                     $modelDiagnosis->id_penyakit = $KdPenyakit;
@@ -131,6 +129,7 @@ class DiagnosaController extends Controller
                 
                 // Menandai bahwa penyakit terdeteksi
                 $detects = true;
+                break;
             }
         }
     
@@ -144,10 +143,11 @@ class DiagnosaController extends Controller
             ]);
         }
     
-        // Mengembalikan response dengan id diagnosis dan id penyakit (jika ada)
+        // Mengembalikan response dengan id diagnosis, id penyakit (jika ada), dan jumlah gejala yang cocok
         return response()->json([
             'idDiagnosis' => $modelDiagnosis->id,
-            'idPenyakit' => $penyakit ?? null
+            'idPenyakit' => $penyakit ?? null,
+            'matchedSymptoms' => $matchedSymptoms
         ]);
     }
     

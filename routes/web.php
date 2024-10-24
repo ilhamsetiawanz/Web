@@ -69,12 +69,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/diagnosis', [DiagnosaController::class, 'diagnosis'])->name('post'); 
         Route::get('/detail-diagnosis', [UserController::class, 'detailDiagnosis'])->name('detailDiagnosis');
         Route::get('/get-gejala', [UserController::class, 'getGejala'])->name('getGejala');
-        Route::get('/get-aturan-with-next-gejala', [UserController::class, 'aturanWithNextGejala'])->name('aturanWithNextGejala');
         // Route::get('/detailDiagnosis', UserController::class, 'detailDiagnosis')->name('details')
     });
     Route::prefix('profile')->group(function() {
         Route::get('/', [PetaniController::class, 'petaniView'])->name('profile');
         Route::get('/hasil-diagnosa', [ReportHistory::class, 'GetHistoryUser'])->name('history.get');
+        Route::get('hasil-diagnosa/details/{report}', [ReportHistory::class, 'DetailDiagnosisId'])->name('details');
     });  
     Route::post('/logout', [AuthController::class, 'logOut'])->name('logout');
 });

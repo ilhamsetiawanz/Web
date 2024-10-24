@@ -90,7 +90,7 @@ class UserController extends Controller
 
     public function getGejala()
     {
-        return response()->json(DataGejala::select(['id', 'name', 'image'])->get());
+        return response()->json(DataGejala::select(['id', 'name', 'image', 'jenis_gejala'])->get());
     }
 
     public function chartDiagnosisPenyakit(Request $request)
@@ -113,17 +113,6 @@ class UserController extends Controller
         return response()->json($bobot);
     }
 
-    public function aturanWithNextGejala()
-    {
-        $aturanWithNextGejala = Rule::select(['KdPenyakit', 'KdGejala', 'next_first_gejala_id'])->get();
-        
-        $aturanMap = [];
-        foreach ($aturanWithNextGejala as $value) {
-            $aturanMap[$value->KdPenyakit][$value->KdGejala] = $value->next_first_gejala_id;
-        }
-
-        return response()->json($aturanMap);
-    }
 
     public function getAturanGejala()
     {

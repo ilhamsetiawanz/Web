@@ -20,7 +20,6 @@
                             <th scope="col" class="p-1">No</th>
                             <th scope="col" class="p-2">Penyakit</th>
                             <th scope="col" class="p-2">Gejala</th>
-                            <th scope="col" class="p-4">Gejala Selanjutnya</th>
                             <th scope="col" class="p-4">Tanggal Dibuat/DiUbah</th>
                             <th scope="col" class="p-4">Aksi</th>
                         </tr>
@@ -42,18 +41,7 @@
                                         <span>{{$gejala->name}}</span>
                                     @endif
                                 @endforeach
-                            </td>
-                            <td class="p-4">
-                                @if ($data->next_first_gejala_id)
-                                    @foreach ($dataGejala as $gejala)
-                                        @if ($data->next_first_gejala_id == $gejala->id)
-                                            <span>{{ $gejala->name }}</span>
-                                        @endif
-                                    @endforeach
-                                @else
-                                    <span>Gejala selanjutnya tidak ada</span>
-                                @endif
-                            </td>                            
+                            </td>                           
                             <td class="p-2">
                                 <span class="font-semibold text-base text-gray-600">
                                     {{ \Carbon\Carbon::parse($data->updated_at)->format('D M Y') }}

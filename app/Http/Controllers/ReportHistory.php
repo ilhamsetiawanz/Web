@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataGejala;
 use App\Models\DataPenyakit;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
@@ -33,5 +34,12 @@ class ReportHistory extends Controller
                 'totalLaporan' => $totalLaporan
             ]
         ]);
+    }
+
+    public function DetailDiagnosisId(Report $report){
+        $report = Report::all()->find($report->id);
+        $penyakit = DataPenyakit::all();
+        $gejala = DataGejala::all();
+        return view('pages.User.detailDiagnosis', compact('report', 'penyakit', 'gejala'));
     }
 }

@@ -199,16 +199,9 @@ class DiagnosisModal {
     // Display the diagnosis result
     getPenyakitFromDiagnose(response, success) {
         if (success) {
-            if (response.idPenyakit !== null) {
-                Swal.fire({
-                    title: 'Penyakit Teridentifikasi',
-                    text: 'Penyakit yang teridentifikasi dengan Kode Penyakit: P' + response.idPenyakit.id,
-                    icon: 'success',
-                    customClass: {
-                        popup: 'w-full max-w-xl'
-                    }
-                });
-                console.log(response);
+            if (response.idDiagnosis !== null) {
+                // Redirect user to the diagnosis detail page after a successful diagnosis
+                window.location.href = `/profile/hasil-diagnosa/details/${response.idDiagnosis}`;
             } else {
                 Swal.fire({
                     title: 'Penyakit Tidak Teridentifikasi',
@@ -230,6 +223,7 @@ class DiagnosisModal {
             });
         }
     }
+
 }
 
 $(document).ready(function() {

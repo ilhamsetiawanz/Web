@@ -59,7 +59,87 @@ class DiagnosaController extends Controller
     }
     
 
-    // Lakukan Diagnosa
+    // Lakukan Diagnosa deteksi wajib seluruh gejala
+    // public function diagnosis(Request $request)
+    // {
+    //     // Validasi input request: idGejala harus ada, berupa angka, dengan nilai maksimal sesuai total gejala yang ada, minimal 1
+    //     $request->validate([
+    //         'idGejala' => ['required', 'numeric', 'max:' . $this->allGejala, 'min:1']
+    //     ]);
+    
+    //     // Menginisialisasi array fakta dengan key idGejala dan value yang di-filter apakah benar atau salah (boolean)
+    //     $ReqFakta = [
+    //         $request->idGejala => filter_var($request->value, FILTER_VALIDATE_BOOLEAN)
+    //     ];
+    
+    //     // Mendapatkan model diagnosis berdasarkan idGejala yang dikonversi ke integer
+    //     $modelDiagnosis = $this->checkDiagnosis((int) $request->idGejala);
+        
+    //     // Mengambil log jawaban sebelumnya dari model, jika tidak ada maka di-inisialisasi dengan array kosong
+    //     $logJawaban = json_decode($modelDiagnosis->answer_log, true) ?? [];
+    
+    //     // Menambahkan fakta baru ke dalam log jawaban
+    //     $logJawaban = $logJawaban + $ReqFakta;
+    
+    //     // Mengupdate log jawaban dalam bentuk JSON di model diagnosis
+    //     $modelDiagnosis->answer_log = json_encode($logJawaban);
+    
+    //     // Menyimpan perubahan pada model diagnosis
+    //     $modelDiagnosis->save();
+    
+    //     // Mengambil aturan diagnosis (KdPenyakit dan KdGejala) dari model Rule
+    //     $aturan = Rule::get(['KdPenyakit', 'KdGejala']);
+    //     $rules = [];
+    
+    //     // Membuat array rules berdasarkan KdPenyakit sebagai key dan daftar KdGejala sebagai value
+    //     foreach($aturan as $key => $value) {
+    //         $rules[$value->KdPenyakit][] = $value->KdGejala;
+    //     }
+    
+    //     // Mengambil fakta dari log jawaban
+    //     $fakta = $logJawaban;
+    
+    //     // Variabel untuk mendeteksi apakah penyakit ditemukan atau tidak
+    //     $detects = false;
+    //     foreach ($rules as $KdPenyakit => $KdGejala){
+    //         $isTheredisease =true;
+    //         foreach ($KdGejala as $penyakitGejala) {
+    //             $fakta [$penyakitGejala] = $fakta[$penyakitGejala] ?? false;
+    //             if (!$fakta[$penyakitGejala]) {
+    //                 $isTheredisease = false;                    break;
+    //             }
+    //         }
+    //         if($isTheredisease){
+    //             if ($modelDiagnosis->id_penyakit == null){
+    //                 $modelDiagnosis->id_penyakit = $KdPenyakit;
+    //                 $modelDiagnosis->save();
+    //             }
+
+    //             $penyakit = DataPenyakit::where('id', $modelDiagnosis->id_penyakit)->first('id');
+                
+    //             // Menandai bahwa penyakit terdeteksi
+    //             $detects = true;
+    //             break;
+    //         }
+    //     }
+    //     // Jika tidak ada penyakit terdeteksi dan idGejala adalah gejala terakhir (semua gejala telah dievaluasi)
+    //     if (!$detects && $request->idGejala == $this->allGejala) {
+    //         // Mengembalikan response bahwa penyakit tidak teridentifikasi
+    //         return response()->json([
+    //             'penyakitUnidentified' => true,
+    //             'idPenyakit' => null,
+    //             'idDiagnosis' => $modelDiagnosis->id,
+    //         ]);
+    //     }
+    
+    //     // Mengembalikan response dengan id diagnosis, id penyakit (jika ada), dan jumlah gejala yang cocok
+    //     return response()->json([
+    //         'idDiagnosis' => $modelDiagnosis->id,
+    //         'idPenyakit' => $penyakit ?? null, // Jika penyakit tidak ditemukan, maka null
+    //     ]);
+    // }
+
+    // Kode Cuman Deteksi 3 gejala
     public function diagnosis(Request $request)
     {
         // Validasi input request: idGejala harus ada, berupa angka, dengan nilai maksimal sesuai total gejala yang ada, minimal 1
@@ -117,7 +197,7 @@ class DiagnosaController extends Controller
             }
     
             // Jika penyakit terdeteksi (minimal 3 gejala cocok)
-            if ($matchedSymptoms >= 3) {
+            if ($matchedSymptoms >= 5) {
                 // Jika id_penyakit belum diset pada model, set dengan KdPenyakit yang ditemukan
                 if ($modelDiagnosis->id_penyakit == null) {
                     $modelDiagnosis->id_penyakit = $KdPenyakit;
@@ -150,5 +230,5 @@ class DiagnosaController extends Controller
             'matchedSymptoms' => $matchedSymptoms
         ]);
     }
-    
+       
 }

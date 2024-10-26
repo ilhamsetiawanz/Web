@@ -36,15 +36,18 @@ class DataPenyakit extends Model
     }
     public function gejala()
     {
+        // Many to Many
         return $this->belongsToMany(DataGejala::class, 'rule', 'penyakit_id', 'gejala_id');
     }
 
     public function rule()
     {
+        // Many to Many
         return $this->hasMany(Rule::class);
     }
     public function diagnosa()
     {
+        // Many to Many
         return $this->hasMany(Report::class);
     }
 }

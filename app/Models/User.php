@@ -47,9 +47,4 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    
-    public function idPetani() {
-        return $this->belongsTo(Petani::class, 'idUsers', 'id');   
-    }
 }

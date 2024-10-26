@@ -19,12 +19,14 @@ class DataGejala extends Model
         'name',
         'image',
         'jenis_gejala'
-    ];
+    ]; // Data yang dapat di isi
     /**
      * image
      *
      * @return Attribute
      */
+    
+    //  Gambar
     protected function image(): Attribute
     {
         return Attribute::make(

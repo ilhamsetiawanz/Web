@@ -12,15 +12,16 @@ class Report extends Model
     protected $fillable = [
         'user_id',
         'id_penyakit',
-        'answer_log',
+        'answer_log', //Log Jawaban atau Gejala Yang Dipilih
     ];
 
     protected $casts = [
-        'answer_log' => 'json',
+        'answer_log' => 'json', //TIPE DATA JSON
     ];
 
     public function user()
     {
+        // One To Many
         return $this->belongsTo(User::class);
     }
 

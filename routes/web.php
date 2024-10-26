@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('profile')->group(function() {
         Route::get('/', [PetaniController::class, 'petaniView'])->name('profile');
         Route::get('/hasil-diagnosa', [ReportHistory::class, 'GetHistoryUser'])->name('history.get');
-        Route::get('hasil-diagnosa/details/{report}', [ReportHistory::class, 'DetailDiagnosisId'])->name('details');
+        Route::get('/hasil-diagnosa/details/{report}', [ReportHistory::class, 'DetailDiagnosisId'])->name('details');
     });  
     Route::post('/logout', [AuthController::class, 'logOut'])->name('logout');
 });

@@ -24,13 +24,6 @@ class RuleController extends Controller
     
 
     /**
-    *
-    */
-    // private function getRules(){
-
-    // }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create()

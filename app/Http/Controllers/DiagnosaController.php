@@ -45,7 +45,7 @@ class DiagnosaController extends Controller
             return $this->newDiagnosis();
         }
     
-        if ($DiagnosaTerakhir->id_penyakit === null) {
+        if ($DiagnosaTerakhir && $DiagnosaTerakhir->id_penyakit === null) {
             $logJawaban = json_decode($DiagnosaTerakhir->answer_log, true) ?? [];
             $MaxLogJawaban = max(array_keys($logJawaban));
     
@@ -57,178 +57,70 @@ class DiagnosaController extends Controller
     
         return $this->newDiagnosis();
     }
-    
 
     // Lakukan Diagnosa deteksi wajib seluruh gejala
-    // public function diagnosis(Request $request)
-    // {
-    //     // Validasi input request: idGejala harus ada, berupa angka, dengan nilai maksimal sesuai total gejala yang ada, minimal 1
-    //     $request->validate([
-    //         'idGejala' => ['required', 'numeric', 'max:' . $this->allGejala, 'min:1']
-    //     ]);
-    
-    //     // Menginisialisasi array fakta dengan key idGejala dan value yang di-filter apakah benar atau salah (boolean)
-    //     $ReqFakta = [
-    //         $request->idGejala => filter_var($request->value, FILTER_VALIDATE_BOOLEAN)
-    //     ];
-    
-    //     // Mendapatkan model diagnosis berdasarkan idGejala yang dikonversi ke integer
-    //     $modelDiagnosis = $this->checkDiagnosis((int) $request->idGejala);
-        
-    //     // Mengambil log jawaban sebelumnya dari model, jika tidak ada maka di-inisialisasi dengan array kosong
-    //     $logJawaban = json_decode($modelDiagnosis->answer_log, true) ?? [];
-    
-    //     // Menambahkan fakta baru ke dalam log jawaban
-    //     $logJawaban = $logJawaban + $ReqFakta;
-    
-    //     // Mengupdate log jawaban dalam bentuk JSON di model diagnosis
-    //     $modelDiagnosis->answer_log = json_encode($logJawaban);
-    
-    //     // Menyimpan perubahan pada model diagnosis
-    //     $modelDiagnosis->save();
-    
-    //     // Mengambil aturan diagnosis (KdPenyakit dan KdGejala) dari model Rule
-    //     $aturan = Rule::get(['KdPenyakit', 'KdGejala']);
-    //     $rules = [];
-    
-    //     // Membuat array rules berdasarkan KdPenyakit sebagai key dan daftar KdGejala sebagai value
-    //     foreach($aturan as $key => $value) {
-    //         $rules[$value->KdPenyakit][] = $value->KdGejala;
-    //     }
-    
-    //     // Mengambil fakta dari log jawaban
-    //     $fakta = $logJawaban;
-    
-    //     // Variabel untuk mendeteksi apakah penyakit ditemukan atau tidak
-    //     $detects = false;
-    //     foreach ($rules as $KdPenyakit => $KdGejala){
-    //         $isTheredisease =true;
-    //         foreach ($KdGejala as $penyakitGejala) {
-    //             $fakta [$penyakitGejala] = $fakta[$penyakitGejala] ?? false;
-    //             if (!$fakta[$penyakitGejala]) {
-    //                 $isTheredisease = false;                    break;
-    //             }
-    //         }
-    //         if($isTheredisease){
-    //             if ($modelDiagnosis->id_penyakit == null){
-    //                 $modelDiagnosis->id_penyakit = $KdPenyakit;
-    //                 $modelDiagnosis->save();
-    //             }
-
-    //             $penyakit = DataPenyakit::where('id', $modelDiagnosis->id_penyakit)->first('id');
-                
-    //             // Menandai bahwa penyakit terdeteksi
-    //             $detects = true;
-    //             break;
-    //         }
-    //     }
-    //     // Jika tidak ada penyakit terdeteksi dan idGejala adalah gejala terakhir (semua gejala telah dievaluasi)
-    //     if (!$detects && $request->idGejala == $this->allGejala) {
-    //         // Mengembalikan response bahwa penyakit tidak teridentifikasi
-    //         return response()->json([
-    //             'penyakitUnidentified' => true,
-    //             'idPenyakit' => null,
-    //             'idDiagnosis' => $modelDiagnosis->id,
-    //         ]);
-    //     }
-    
-    //     // Mengembalikan response dengan id diagnosis, id penyakit (jika ada), dan jumlah gejala yang cocok
-    //     return response()->json([
-    //         'idDiagnosis' => $modelDiagnosis->id,
-    //         'idPenyakit' => $penyakit ?? null, // Jika penyakit tidak ditemukan, maka null
-    //     ]);
-    // }
-
-    // Kode Cuman Deteksi 3 gejala
     public function diagnosis(Request $request)
     {
-        // Validasi input request: idGejala harus ada, berupa angka, dengan nilai maksimal sesuai total gejala yang ada, minimal 1
+        // Validasi seluruh gejala yang dikirim sekaligus
         $request->validate([
-            'idGejala' => ['required', 'numeric', 'max:' . $this->allGejala, 'min:1']
+            'gejalaList' => ['required', 'array', 'min:1']
         ]);
-    
-        // Menginisialisasi array fakta dengan key idGejala dan value yang di-filter apakah benar atau salah (boolean)
-        $ReqFakta = [
-            $request->idGejala => filter_var($request->value, FILTER_VALIDATE_BOOLEAN)
-        ];
-    
-        // Mendapatkan model diagnosis berdasarkan idGejala yang dikonversi ke integer
-        $modelDiagnosis = $this->checkDiagnosis((int) $request->idGejala);
-        
-        // Mengambil log jawaban sebelumnya dari model, jika tidak ada maka di-inisialisasi dengan array kosong
-        $logJawaban = json_decode($modelDiagnosis->answer_log, true) ?? [];
-    
-        // Menambahkan fakta baru ke dalam log jawaban
-        $logJawaban = $logJawaban + $ReqFakta;
-    
-        // Mengupdate log jawaban dalam bentuk JSON di model diagnosis
+
+        $selectedGejala = $request->input('gejalaList');
+        $logJawaban = []; // Log semua jawaban gejala yang dipilih
+
+        foreach ($selectedGejala as $idGejala) {
+            $logJawaban[$idGejala] = true; // Simpan gejala yang dipilih
+        }
+
+        // Inisialisasi model diagnosis tanpa metode terpisah
+        $modelDiagnosis = new Report();
+        $modelDiagnosis->user_id = Auth::id(); // Set user ID
         $modelDiagnosis->answer_log = json_encode($logJawaban);
-    
-        // Menyimpan perubahan pada model diagnosis
         $modelDiagnosis->save();
-    
-        // Mengambil aturan diagnosis (KdPenyakit dan KdGejala) dari model Rule
+
+        // Ambil aturan diagnosis
         $aturan = Rule::get(['KdPenyakit', 'KdGejala']);
         $rules = [];
-    
-        // Membuat array rules berdasarkan KdPenyakit sebagai key dan daftar KdGejala sebagai value
-        foreach($aturan as $key => $value) {
+
+        foreach ($aturan as $value) {
             $rules[$value->KdPenyakit][] = $value->KdGejala;
         }
-    
-        // Mengambil fakta dari log jawaban
-        $fakta = $logJawaban;
-    
-        // Variabel untuk mendeteksi apakah penyakit ditemukan atau tidak
-        $detects = false;
-        $matchedSymptoms = 0;
 
-        // Melakukan pengecekan terhadap setiap rule penyakit dan gejalanya
+        $detects = false;
+        $foundDisease = null;
+
         foreach ($rules as $KdPenyakit => $KdGejala) {
-            $matchedSymptoms = 0;
-            foreach ($KdGejala as $ruleGejalaPenyakit) {
-                // Jika gejala tidak ada dalam fakta, set default ke false
-                $fakta[$ruleGejalaPenyakit] = $fakta[$ruleGejalaPenyakit] ?? false;
-    
-                // Jika gejala cocok, tambahkan ke hitungan gejala yang cocok
-                if ($fakta[$ruleGejalaPenyakit]) {
-                    $matchedSymptoms++;
+            $matchingSymptoms = 0;
+
+            foreach ($KdGejala as $penyakitGejala) {
+                if (isset($logJawaban[$penyakitGejala])) {
+                    $matchingSymptoms++;
                 }
             }
-    
-            // Jika penyakit terdeteksi (minimal 3 gejala cocok)
-            if ($matchedSymptoms >= 5) {
-                // Jika id_penyakit belum diset pada model, set dengan KdPenyakit yang ditemukan
-                if ($modelDiagnosis->id_penyakit == null) {
-                    $modelDiagnosis->id_penyakit = $KdPenyakit;
-                    $modelDiagnosis->save();
-                }
-    
-                // Mengambil data penyakit dari model DataPenyakit berdasarkan id_penyakit
-                $penyakit = DataPenyakit::where('id', $modelDiagnosis->id_penyakit)->first('id');
-                
-                // Menandai bahwa penyakit terdeteksi
+
+            if ($matchingSymptoms >= 3) { // Cek jika minimal 3 gejala cocok
+                $foundDisease = $KdPenyakit;
                 $detects = true;
                 break;
             }
         }
-    
-        // Jika tidak ada penyakit terdeteksi dan idGejala adalah gejala terakhir (semua gejala telah dievaluasi)
-        if (!$detects && $request->idGejala == $this->allGejala) {
-            // Mengembalikan response bahwa penyakit tidak teridentifikasi
+
+        if ($detects) {
+            $modelDiagnosis->id_penyakit = $foundDisease;
+            $modelDiagnosis->save();
+
             return response()->json([
-                'penyakitUnidentified' => true,
-                'idPenyakit' => null,
                 'idDiagnosis' => $modelDiagnosis->id,
+                'idPenyakit' => $foundDisease
             ]);
         }
-    
-        // Mengembalikan response dengan id diagnosis, id penyakit (jika ada), dan jumlah gejala yang cocok
+
+        // Jika tidak ada penyakit yang terdeteksi
         return response()->json([
+            'penyakitUnidentified' => true,
             'idDiagnosis' => $modelDiagnosis->id,
-            'idPenyakit' => $penyakit ?? null,
-            'matchedSymptoms' => $matchedSymptoms
+            'idPenyakit' => null,
         ]);
     }
-       
 }

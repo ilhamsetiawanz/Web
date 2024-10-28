@@ -5,7 +5,6 @@ class DiagnosisModal {
         this.currentStep = 'gejala'; // 'gejala' or 'processing'
     }
 
-    // Fetch gejala list from the server
     async ajaxGetGejala() {
         return $.ajax({
             url: '/get-gejala',
@@ -14,20 +13,18 @@ class DiagnosisModal {
         });
     }
 
-    // Send selected gejala to server for diagnosis processing
-    async ajaxRequestToDiagnosis(idGejala, value) {
+    // Mengirim seluruh gejala yang dipilih dalam satu permintaan
+    async ajaxRequestToDiagnosis(selectedGejala) {
         return $.ajax({
             url: "/diagnosis",
             type: "POST",
             data: {
                 _token: this.csrfToken,
-                idGejala: idGejala,
-                value: value
+                gejalaList: selectedGejala
             },
         });
     }
 
-    // Error handling using SweetAlert2
     swalError = async (error) => {
         const result = await Swal.fire({
             title: 'Terjadi kesalahan',
@@ -46,11 +43,10 @@ class DiagnosisModal {
         }
     };
 
-    // Show modal dialog before diagnosis starts
     async showModal() {
         const swalBeforeDiagnosis = await Swal.fire({
             title: 'Catatan',
-            text: 'Sistem ini memiliki keterbatasan dalam cakupan data penyakit tanaman cabai, sehingga tidak semua penyakit dapat didiagnosis. Hanya penyakit yang terdapat dalam daftar penyakit yang dapat didiagnosis. Apakah Anda ingin melanjutkan proses diagnosis?',
+            text: 'Sistem ini memiliki keterbatasan dalam cakupan data penyakit tanaman cabai...',
             icon: 'info',
             showCancelButton: true,
             confirmButtonText: 'Lanjutkan',
@@ -61,7 +57,6 @@ class DiagnosisModal {
         if (!swalBeforeDiagnosis.isConfirmed) return;
 
         try {
-            // Fetch list of gejala (symptoms)
             this.gejala = await this.ajaxGetGejala();
             await this.showGejalaModal();
         } catch (error) {
@@ -69,9 +64,7 @@ class DiagnosisModal {
         }
     }
 
-    // Updated method to show modal for selecting gejala
     async showGejalaModal() {
-        // Group gejala by jenis_gejala
         const groupedGejala = this.gejala.reduce((acc, item) => {
             if (!acc[item.jenis_gejala]) {
                 acc[item.jenis_gejala] = [];
@@ -80,12 +73,12 @@ class DiagnosisModal {
             return acc;
         }, {});
 
-        let htmlContent = '<div class="h-[80vh] overflow-y-auto px-4">';
-        
+        // Membuat konten modal
+        let htmlContent = '<div class="h-full overflow-y-auto px-4">';
         for (const [jenisGejala, gejalaList] of Object.entries(groupedGejala)) {
             htmlContent += `
                 <div class="mb-4">
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">${jenisGejala}</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">${jenisGejala}</h3>
                     ${gejalaList.map(item => `
                         <div class="mb-4 pb-4 border-b border-gray-200">
                             <label class="flex items-center mb-2">
@@ -100,23 +93,19 @@ class DiagnosisModal {
         
         htmlContent += '</div>';
 
+        // Menampilkan modal dalam full screen
         const { value: selectedGejala, dismiss: dismissReason } = await Swal.fire({
             title: 'Pilih Gejala Yang Dialami',
             html: htmlContent,
             showCancelButton: true,
             confirmButtonText: 'Diagnosa',
             cancelButtonText: 'Batal',
-            customClass: {
-                container: 'swal-fullscreen-modal',
-                popup: 'w-full h-full m-0',
-                htmlContainer: 'h-[calc(100%-200px)]',
-                title: 'text-2xl font-bold text-gray-800 mb-4',
-                confirmButton: 'bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded',
-                cancelButton: 'bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-2'
-            },
             preConfirm: () => {
                 return Array.from(document.querySelectorAll('input[name="gejala"]:checked')).map(cb => cb.value);
-            }
+            },
+            customClass: {
+                popup: 'full-screen-modal' // Kelas custom untuk modal full screen
+            },
         });
 
         if (dismissReason) return;
@@ -126,90 +115,47 @@ class DiagnosisModal {
                 title: 'Error',
                 text: 'Pilih setidaknya satu gejala',
                 icon: 'error',
-                customClass: {
-                    popup: 'w-full max-w-md'
-                }
             });
             return;
         }
 
-        // Proceed to the next step: processing diagnosis
         this.currentStep = 'processing';
         await this.showProcessingModal(selectedGejala);
     }
 
-    // Show processing modal as gejala are being diagnosed
     async showProcessingModal(selectedGejala) {
         const processHtml = `
             <div id="processingStatus" class="text-lg text-gray-700 mb-4">Memulai diagnosis...</div>
-            <div class="mt-4">
-                <button id="backButton" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">Kembali</button>
-            </div>
         `;
 
         Swal.fire({
             title: 'Memproses Diagnosis',
             html: processHtml,
             showConfirmButton: false,
-            showCancelButton: false,
             allowOutsideClick: false,
-            allowEscapeKey: false,
             customClass: {
-                container: 'swal-large-modal',
-                popup: 'w-full max-w-2xl',
-                title: 'text-2xl font-bold text-gray-800 mb-4'
+                popup: 'full-screen-modal' // Kelas custom untuk modal full screen
             },
-            didOpen: () => {
-                document.getElementById('backButton').addEventListener('click', () => {
-                    this.currentStep = 'gejala';
-                    Swal.close();
-                    this.showGejalaModal();
-                });
-            }
         });
 
-        let finalResponse = null;
-
-        for (const [index, idGejala] of selectedGejala.entries()) {
-            try {
-                // Update status in modal
-                document.getElementById('processingStatus').textContent = `Memproses gejala ${index + 1} dari ${selectedGejala.length}...`;
-                
-                // Make request to server for diagnosis
-                const response = await this.ajaxRequestToDiagnosis(idGejala, true);
-                finalResponse = response;
-
-                // If a disease is identified or the system cannot identify any disease
-                if (response.idPenyakit !== null || response.penyakitUnidentified === true) {
-                    break;
-                }
-            } catch (error) {
-                await this.swalError(error.responseJSON ?? error);
-                return;
-            }
-        }
-
-        // If still processing, close modal and show diagnosis result
-        if (this.currentStep === 'processing') {
+        try {
+            const finalResponse = await this.ajaxRequestToDiagnosis(selectedGejala);
             await Swal.close();
             return this.getPenyakitFromDiagnose(finalResponse, true);
+        } catch (error) {
+            await this.swalError(error.responseJSON ?? error);
         }
     }
 
-    // Display the diagnosis result
     getPenyakitFromDiagnose(response, success) {
         if (success) {
             if (response.idDiagnosis !== null) {
-                // Redirect user to the diagnosis detail page after a successful diagnosis
                 window.location.href = `/profile/hasil-diagnosa/details/${response.idDiagnosis}`;
             } else {
                 Swal.fire({
                     title: 'Penyakit Tidak Teridentifikasi',
                     text: 'Tidak dapat mengidentifikasi penyakit berdasarkan gejala yang diberikan.',
                     icon: 'warning',
-                    customClass: {
-                        popup: 'w-full max-w-xl'
-                    }
                 });
             }
         } else {
@@ -217,20 +163,40 @@ class DiagnosisModal {
                 title: 'Error',
                 text: 'Terjadi kesalahan dalam proses diagnosis. Silakan coba lagi.',
                 icon: 'error',
-                customClass: {
-                    popup: 'w-full max-w-xl'
-                }
             });
         }
     }
-
 }
+
+// Menambahkan CSS untuk modal full screen
+const style = document.createElement('style');
+style.innerHTML = `
+    .full-screen-modal {
+        width: 100%; /* Atur lebar modal ke 100% */
+        height: 100%; /* Atur tinggi modal ke 100% */
+        max-width: none; /* Hilangkan batasan lebar maksimum */
+        max-height: none; /* Hilangkan batasan tinggi maksimum */
+        border-radius: 0; /* Hilangkan sudut modal */
+        padding: 0; /* Hilangkan padding default */
+    }
+    .swal2-popup {
+        display: flex; /* Menggunakan flexbox untuk konten di dalam modal */
+        align-items: center; /* Vertikal center */
+        justify-content: center; /* Horizontal center */
+    }
+    .swal2-content {
+        width: 100%; /* Atur lebar konten ke 100% */
+        height: 100%; /* Atur tinggi konten ke 100% */
+        overflow-y: auto; /* Tambahkan scroll jika konten melebihi tinggi */
+        padding: 20px; /* Tambahkan padding ke konten */
+    }
+`;
+document.head.appendChild(style);
 
 $(document).ready(function() {
     const csrfToken = "{{ csrf_token() }}";
     const diagnosisModal = new DiagnosisModal(csrfToken);
 
-    // Show modal when user clicks the "Mulai Diagnosa Sekarang" button
     $('#btn-diagnosis').on('click', function () {
         diagnosisModal.showModal();
     });

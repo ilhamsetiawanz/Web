@@ -72,7 +72,7 @@ Route::middleware('auth')->group(function () {
         // Route::get('/detailDiagnosis', UserController::class, 'detailDiagnosis')->name('details')
     });
     Route::prefix('profile')->group(function() {
-        Route::get('/', [PetaniController::class, 'petaniView'])->name('profile');
+        Route::get('/', [AuthController::class, 'petaniView'])->name('profile');
         Route::get('/hasil-diagnosa', [ReportHistory::class, 'GetHistoryUser'])->name('history.get');
         Route::get('/hasil-diagnosa/details/{report}', [ReportHistory::class, 'DetailDiagnosisId'])->name('details');
     });  

@@ -7,7 +7,7 @@
 @endsection
 
 @section('body')
-    <!-- Large Card After Jumbotron -->
+    {{-- <!-- Large Card After Jumbotron -->
     <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6">
         <img src="large-card-image.jpg" alt="Main Article" class="w-full h-64 object-cover">
         <div class="p-6">
@@ -58,5 +58,5 @@
             <div class="mt-4 text-gray-500">May 20th 2020</div>
             <a href="#" class="mt-2 inline-block text-blue-500 hover:underline">Read more</a>
         </div>
-    </div>
+    </div> --}}
 @endsection

@@ -71,5 +71,10 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('Home')->with('success', 'You have been logged out.');
     }
+
+    public function petaniView()
+    {
+        return view('Pages.User.Profile');
+    }
     
 }

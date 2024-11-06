@@ -75,6 +75,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [AuthController::class, 'petaniView'])->name('profile');
         Route::get('/hasil-diagnosa', [ReportHistory::class, 'GetHistoryUser'])->name('history.get');
         Route::get('/hasil-diagnosa/details/{report}', [ReportHistory::class, 'DetailDiagnosisId'])->name('details');
-    });  
+    }); 
+    Route::get('/riwayat', [ReportHistory::class, 'viewHistory'])->name('Riwayat'); 
+    Route::get('/riwayat/download', [ReportHistory::class, 'downloadPdf'])->name('riwayat.downloadPdf');
     Route::post('/logout', [AuthController::class, 'logOut'])->name('logout');
 });

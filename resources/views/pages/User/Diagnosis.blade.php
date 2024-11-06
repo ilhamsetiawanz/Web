@@ -36,12 +36,16 @@
 <script src="{{asset('js/diagnosis.js')}}"></script>
 
 <style>
-.swal-fullscreen-modal {
-    padding: 0 !important;
+.swal-fullscreen {
+    width: 100% !important; /* Override width */
+    height: 100% !important; /* Override height */
+    border-radius: 0 !important; /* Menghilangkan sudut bundar */
+    padding: 0 !important; /* Menghilangkan padding */
+    top: 0 !important; /* Set posisi top ke 0 */
+    left: 0 !important; /* Set posisi left ke 0 */
+    right: 0 !important; /* Set posisi right ke 0 */
+    bottom: 0 !important; /* Set posisi bottom ke 0 */
 }
 
-.swal-fullscreen-modal .swal2-popup {
-    border-radius: 0 !important;
-}
 </style>
 @endpush

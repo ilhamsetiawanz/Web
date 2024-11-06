@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 class WebPagesController extends Controller
 {
     public function home(){
-        return view('pages.Home.HomeWeb');
+        $penyakits = DataPenyakit::get(['id', 'NamaPenyakit', 'reason', 'solution', 'image']);
+
+        return view('pages.Home.HomeWeb', compact('penyakits'));
     }
 
     public function diagnosaPage(){

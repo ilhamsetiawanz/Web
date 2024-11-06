@@ -93,7 +93,7 @@ class DiagnosisModal {
         
         htmlContent += '</div>';
 
-        // Menampilkan modal dalam full screen
+        // Menampilkan modal dengan ukuran full screen
         const { value: selectedGejala, dismiss: dismissReason } = await Swal.fire({
             title: 'Pilih Gejala Yang Dialami',
             html: htmlContent,
@@ -103,8 +103,11 @@ class DiagnosisModal {
             preConfirm: () => {
                 return Array.from(document.querySelectorAll('input[name="gejala"]:checked')).map(cb => cb.value);
             },
+            backdrop: 'rgba(0,0,0,0.7)', // Tambahkan backdrop semi-transparan
+            width: '100%', // Lebar modal 100%
+            height: '100%', // Tinggi modal 100%
             customClass: {
-                popup: 'full-screen-modal' // Kelas custom untuk modal full screen
+                popup: 'swal-fullscreen', // Kelas custom untuk modal full screen
             },
         });
 
@@ -133,9 +136,6 @@ class DiagnosisModal {
             html: processHtml,
             showConfirmButton: false,
             allowOutsideClick: false,
-            customClass: {
-                popup: 'full-screen-modal' // Kelas custom untuk modal full screen
-            },
         });
 
         try {
@@ -167,31 +167,6 @@ class DiagnosisModal {
         }
     }
 }
-
-// Menambahkan CSS untuk modal full screen
-const style = document.createElement('style');
-style.innerHTML = `
-    .full-screen-modal {
-        width: 100%; /* Atur lebar modal ke 100% */
-        height: 100%; /* Atur tinggi modal ke 100% */
-        max-width: none; /* Hilangkan batasan lebar maksimum */
-        max-height: none; /* Hilangkan batasan tinggi maksimum */
-        border-radius: 0; /* Hilangkan sudut modal */
-        padding: 0; /* Hilangkan padding default */
-    }
-    .swal2-popup {
-        display: flex; /* Menggunakan flexbox untuk konten di dalam modal */
-        align-items: center; /* Vertikal center */
-        justify-content: center; /* Horizontal center */
-    }
-    .swal2-content {
-        width: 100%; /* Atur lebar konten ke 100% */
-        height: 100%; /* Atur tinggi konten ke 100% */
-        overflow-y: auto; /* Tambahkan scroll jika konten melebihi tinggi */
-        padding: 20px; /* Tambahkan padding ke konten */
-    }
-`;
-document.head.appendChild(style);
 
 $(document).ready(function() {
     const csrfToken = "{{ csrf_token() }}";

@@ -58,69 +58,80 @@ class DiagnosaController extends Controller
         return $this->newDiagnosis();
     }
 
-    // Lakukan Diagnosa deteksi wajib seluruh gejala
+    // Fungsi diagnosis untuk mendeteksi penyakit berdasarkan gejala yang dipilih
     public function diagnosis(Request $request)
     {
-        // Validasi seluruh gejala yang dikirim sekaligus
+        // Validasi bahwa gejalaList harus ada dan dalam bentuk array, minimal ada 1 elemen
         $request->validate([
             'gejalaList' => ['required', 'array', 'min:1']
         ]);
 
+        // Ambil daftar gejala yang dipilih dari input
         $selectedGejala = $request->input('gejalaList');
-        $logJawaban = []; // Log semua jawaban gejala yang dipilih
+        $logJawaban = []; // Array untuk menyimpan log dari semua gejala yang dipilih
 
+        // Looping untuk setiap gejala yang dipilih
         foreach ($selectedGejala as $idGejala) {
-            $logJawaban[$idGejala] = true; // Simpan gejala yang dipilih
+            // Menandai gejala yang dipilih dalam log
+            $logJawaban[$idGejala] = true;
         }
 
-        // Inisialisasi model diagnosis tanpa metode terpisah
+        // Inisialisasi objek model Report untuk menyimpan data diagnosis
         $modelDiagnosis = new Report();
-        $modelDiagnosis->user_id = Auth::id(); // Set user ID
-        $modelDiagnosis->answer_log = json_encode($logJawaban);
-        $modelDiagnosis->save();
+        $modelDiagnosis->user_id = Auth::id(); // Menyimpan ID pengguna yang login ke dalam diagnosis
+        $modelDiagnosis->answer_log = json_encode($logJawaban); // Menyimpan log jawaban dalam bentuk JSON
+        $modelDiagnosis->save(); // Simpan model diagnosis awal ke database
 
-        // Ambil aturan diagnosis
+        // Ambil aturan diagnosis dari model Rule, hanya mengambil kolom KdPenyakit dan KdGejala
         $aturan = Rule::get(['KdPenyakit', 'KdGejala']);
-        $rules = [];
+        $rules = []; // Array untuk menyimpan aturan diagnosis
 
+        // Looping untuk membentuk aturan penyakit dan gejalanya
         foreach ($aturan as $value) {
+            // Masukkan KdGejala untuk setiap KdPenyakit ke dalam array rules
             $rules[$value->KdPenyakit][] = $value->KdGejala;
         }
 
-        $detects = false;
-        $foundDisease = null;
+        $detects = false; // Variabel untuk menandai apakah ada penyakit yang terdeteksi
+        $foundDisease = null; // Variabel untuk menyimpan ID penyakit yang terdeteksi
 
+        // Looping setiap aturan penyakit untuk mencocokkan gejala
         foreach ($rules as $KdPenyakit => $KdGejala) {
-            $matchingSymptoms = 0;
+            $matchingSymptoms = 0; // Variabel untuk menghitung jumlah gejala yang cocok
 
+            // Looping untuk memeriksa setiap gejala yang terkait dengan penyakit
             foreach ($KdGejala as $penyakitGejala) {
+                // Jika gejala ditemukan dalam log jawaban, tambahkan ke counter gejala yang cocok
                 if (isset($logJawaban[$penyakitGejala])) {
                     $matchingSymptoms++;
                 }
             }
 
-            if ($matchingSymptoms >= 3) { // Cek jika minimal 3 gejala cocok
-                $foundDisease = $KdPenyakit;
-                $detects = true;
-                break;
+            // Jika jumlah gejala yang cocok lebih dari atau sama dengan 3, penyakit terdeteksi
+            if ($matchingSymptoms >= 2) { 
+                $foundDisease = $KdPenyakit; // Simpan ID penyakit yang ditemukan
+                $detects = true; // Tandai bahwa penyakit ditemukan
+                break; // Hentikan pencarian karena penyakit telah ditemukan
             }
         }
 
+        // Jika penyakit terdeteksi
         if ($detects) {
-            $modelDiagnosis->id_penyakit = $foundDisease;
-            $modelDiagnosis->save();
+            $modelDiagnosis->id_penyakit = $foundDisease; // Set ID penyakit yang ditemukan ke model diagnosis
+            $modelDiagnosis->save(); // Simpan model diagnosis yang telah diperbarui
 
+            // Kembalikan respon JSON dengan ID diagnosis dan ID penyakit yang ditemukan
             return response()->json([
                 'idDiagnosis' => $modelDiagnosis->id,
                 'idPenyakit' => $foundDisease
             ]);
         }
 
-        // Jika tidak ada penyakit yang terdeteksi
+        // Jika tidak ada penyakit yang terdeteksi berdasarkan gejala yang dipilih
         return response()->json([
-            'penyakitUnidentified' => true,
-            'idDiagnosis' => $modelDiagnosis->id,
-            'idPenyakit' => null,
+            'penyakitUnidentified' => true, // Tandai bahwa penyakit tidak teridentifikasi
+            'idDiagnosis' => $modelDiagnosis->id, // Kembalikan ID diagnosis yang dibuat
+            'idPenyakit' => null, // Set ID penyakit sebagai null
         ]);
     }
 }

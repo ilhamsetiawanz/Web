@@ -11,8 +11,9 @@
     <!-- Navbar Links -->
     <nav class="hidden md:flex space-x-4">
         <a href="{{route ('Home')}}" class="hover:text-gray-700">Home</a>
-        {{-- <a href="#" class="hover:text-gray-700">Artikel</a> --}}
         <a href="{{route ('Diagnosa')}}" class="hover:text-gray-700">Diagnosa</a>
+        <a href="{{route ('Riwayat')}}" class="hover:text-gray-700">Riwayat</a>
+
     </nav>
     <div class="hidden md:flex space-x-4">
         @if (Auth::check())

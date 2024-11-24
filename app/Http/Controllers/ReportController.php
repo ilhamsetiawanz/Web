@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
+use App\Models\DataGejala;
 use App\Models\DataPenyakit;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
@@ -18,7 +22,7 @@ class ReportController extends Controller
         // Menggunakan eager loading untuk memuat relasi yang diperlukan
         $laporan = Report::with(['user', 'penyakit'])
                         ->orderBy('created_at', 'desc')
-                        ->paginate(10);
+                        ->paginate(20);
         
         $penyakit = DataPenyakit::all();
     
@@ -78,5 +82,23 @@ class ReportController extends Controller
     public function destroy(Report $report)
     {
         //
+    }
+    
+    public function downloadData()
+    {
+
+        // Ambil data diagnosis berdasarkan user, beserta penyakit terkait
+        $diagnosisData = Report::with('penyakit') // Pastikan hubungan dengan penyakit sudah benar
+                                ->get();
+        
+        // Mendapatkan semua data penyakit dan gejala
+        $penyakit = DataPenyakit::all();
+        $gejala = DataGejala::all(); // Mengambil data gejala
+
+        // Menggunakan DOMPDF untuk membuat PDF
+        $pdf = Pdf::loadView('pages.Admin.Report.pdf', compact('diagnosisData', 'penyakit', 'gejala'));
+
+        // Menyediakan unduhan PDF
+        return $pdf->download('Laporan_Hasil_Diagnosa_Penyakit_' . Carbon::now()->format('Y-m-d_H-i-s').'.pdf');
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRuleRequest;
 use App\Http\Requests\UpdateRuleRequest;
 use App\Models\DataGejala;
 use App\Models\DataPenyakit;
+use Illuminate\Support\Facades\Validator;
 
 class RuleController extends Controller
 {
@@ -24,19 +25,26 @@ class RuleController extends Controller
     
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreRuleRequest $request)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'KdPenyakit' => 'required',
+            'KdGejala' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json($validate->errors(), 422);
+        };
+
+        $rule = Rule::create([
+            'KdPenyakit' => $request->KdPenyakit,
+            'KdGejala' => $request->KdGejala,
+        ]);
+        
+        return redirect('Admin/data-aturan');
+
     }
 
     /**

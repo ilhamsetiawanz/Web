@@ -16,7 +16,7 @@ class DataGejalaController extends Controller
      */
     public function index()
     {
-        $gejala = DataGejala::get(['id', 'name', 'image', 'updated_at']);
+        $gejala = DataGejala::get(['id', 'name', 'image',"jenis_gejala", 'updated_at']);
         return view('pages.Admin.Gejala.gejala', compact('gejala'));
     }
 
@@ -35,20 +35,17 @@ class DataGejalaController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'name'        => 'required',
-            'image'       => 'required|image|mimes:jpeg,png,jpg',
+            'jenis_gejala' => 'required'
         ]);
         // Check if validation fails
         if ($validate->fails()) {
             return response()->json($validate->errors(), 422);
         }
     
-        // Upload image
-        $image = $request->file('image');
-        $image->storeAs('public/asset/dataGejala', $image->hashName());
 
         $gejala = DataGejala::create([
             'name' => $request->name,
-            'image' => $image->hashName(),
+            'jenis_gejala' => $request->jenis_gejala
         ]);
         return redirect('Admin/data-gejala');
 

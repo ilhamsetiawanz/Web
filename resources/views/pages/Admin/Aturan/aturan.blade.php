@@ -9,7 +9,7 @@
                 <h4 class="text-gray-600 text-lg font-semibold mb-6">Data Aturan</h4>
                 @include('components.Admin.button.AddModal')
             </div>
-                @include('components.Admin.Gejala.ModalAdd')
+                @include('components.Admin.Aturan.ModalAdd')
                 
             
             <div class="relative overflow-x-auto">

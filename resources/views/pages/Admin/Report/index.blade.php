@@ -7,7 +7,13 @@
         <div class="card-body">
             <div class="flex justify-between">
                 <h4 class="text-gray-600 text-lg font-semibold mb-6">Laporan Diagnosa</h4>
-                {{-- @include('components.Admin.button.AddModal') --}}
+                <a href="{{ route('pdf') }}">
+                    <button class="px-4 py-2 mt-4 mr-5 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300">
+                        <span class="material-symbols-outlined">
+                            download
+                        </span>
+                    </button>
+                </a> 
             </div>
                 {{-- @include('components.Admin.Gejala.ModalAdd') --}}
                 {{-- @foreach ($gejala as $data) --}}
@@ -87,6 +93,50 @@
                     </tbody>
                 </table>
             </div>									
+        </div>
+        <!-- Pagination -->
+        <div class="flex justify-between p-4">
+            <div>
+                @if ($laporan->onFirstPage())
+                    <button class="bg-gray-300 text-gray-600 py-2 px-4 rounded-lg flex items-center gap-1" disabled>
+                        <span class="material-symbols-outlined">
+                            arrow_back
+                        </span>
+                        <span>Previous</span>
+                    </button>
+                @else
+                    <a href="{{ $laporan->previousPageUrl() }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center gap-1 transition duration-300">
+                        <span class="material-symbols-outlined">
+                            arrow_back
+                        </span>
+                        <span>Previous</span>
+                    </a>
+                @endif
+            </div>
+
+            <div class="flex items-center gap-2 text-gray-600">
+                <span>Page {{ $laporan->currentPage() }} of {{ $laporan->lastPage() }}</span>
+                <span>|</span>
+                <span>Total: {{ $laporan->total() }} data</span>
+            </div>
+
+            <div>
+                @if ($laporan->hasMorePages())
+                    <a href="{{ $laporan->nextPageUrl() }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg flex items-center gap-1 transition duration-300">
+                        <span>Next</span>
+                        <span class="material-symbols-outlined">
+                        arrow_forward
+                        </span>
+                    </a>
+                @else
+                    <button class="bg-gray-300 text-gray-600 py-2 px-4 rounded-lg flex items-center gap-1" disabled>
+                        <span>Next</span>
+                        <span class="material-symbols-outlined">
+                        arrow_forward
+                        </span>
+                    </button>
+                @endif
+            </div>
         </div>
     </div>
 @endsection

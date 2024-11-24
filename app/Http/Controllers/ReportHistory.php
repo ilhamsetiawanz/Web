@@ -24,7 +24,7 @@ class ReportHistory extends Controller
         // Dengan relasi 'user' dan 'penyakit', diurutkan berdasarkan created_at
         $laporan = Report::with(['user', 'penyakit'])
                          ->where('user_id', $user->id)  // Filter untuk user yang sedang login
-                         ->orderBy('created_at', 'desc')
+                         ->orderBy('created_at', 'asc')
                          ->paginate(10);  // Pagination, 10 laporan per halaman
         // Mengambil semua data penyakit
         $penyakit = DataPenyakit::all();

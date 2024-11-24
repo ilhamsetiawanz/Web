@@ -52,16 +52,14 @@ Route::middleware('auth')->group(function () {
         // Data Aturan
         Route::prefix('data-aturan')->group(function () {
             Route::get('/', [RuleController::class, 'index'])->name('data-aturan');
+            Route::post('/add', [RuleController::class, 'store'])->name('add-aturan');
+
 
         });
 
         Route::prefix('laporan-bulanan')->group(function () {
             Route::get('/', [ReportController::class, 'index'])->name('laporan-bulanan');
-        });
-
-        // Data Artikel
-        Route::prefix('data-artikel')->group(function () {
-            Route::get('/', [ArtikelController::class, 'index'])->name('data-artikel');
+            Route::get('/Download', [ReportController::class, 'downloadData'])->name('pdf');
         });
     });    
 

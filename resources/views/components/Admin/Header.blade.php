@@ -15,7 +15,7 @@
             <div class="hs-dropdown relative inline-flex [--placement:bottom-right] sm:[--trigger:hover]">
                 <a class="relative hs-dropdown-toggle cursor-pointer align-middle rounded-full">
                     <img class="object-cover w-9 h-9 rounded-full"
-                        src="{{ asset('assets/images/profile/user-1.jpg') }}"
+                        src="{{ asset('img/profile.jpeg') }}"
                         alt="" aria-hidden="true" />
                 </a>
             </div>

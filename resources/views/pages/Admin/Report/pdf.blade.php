@@ -20,15 +20,6 @@
             margin-bottom: 20px;
         }
 
-        .header {
-            margin-bottom: 20px;
-        }
-
-        .header p {
-            font-size: 14px;
-            margin: 5px 0;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -38,32 +29,17 @@
         table th, table td {
             border: 1px solid #000;
             padding: 8px;
-            text-align: center;
+            text-align: justify;
             vertical-align: middle;
         }
 
         table th {
             background-color: #f9f9f9;
         }
-
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #888;
-        }
     </style>
 </head>
 <body>
     <h1>DATA HASIL DIAGNOSA PENYAKIT TANAMAN CABAI</h1>
-
-    <!-- Data User -->
-    <div class="header">
-        <p><strong>Nama Pengguna:</strong> {{ $user->name }}</p>
-        <p><strong>Email:</strong> {{ $user->email }}</p>
-    </div>
-
-    <!-- Tabel Data Diagnosa -->
     <table>
         <thead>
             <tr>
@@ -125,10 +101,5 @@
             @endforeach
         </tbody>
     </table>
-
-    <!-- Footer -->
-    <div class="footer">
-        <p>Tanggal Download: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }}</p>
-    </div>
 </body>
 </html>

@@ -22,7 +22,7 @@
                         <tr class="font-semibold text-gray-600">
                             <th scope="col" class="p-1">No</th>
                             <th scope="col" class="p-2">Nama</th>
-                            <th scope="col" class="p-4">Image</th>
+                            <th scope="col" class="p-4">Jenis Gejala</th>
                             <th scope="col" class="p-4">Tanggal Dibuat/DiUbah</th>
                             <th scope="col" class="p-4">Aksi</th>
                         </tr>
@@ -32,9 +32,7 @@
                         <tr class="overflow-hidden">
                             <td class="p-4 font-semibold text-gray-600 ">{{$loop->iteration}}</td>
                             <td class="p-4">{{$data->name}}</td>
-                            <td class="p-4">
-                                <img class="w-40" src="{{$data->image}}"alt="{{$data->name}}">
-                            </td>
+                            <td class="p-4">{{$data->jenis_gejala}}</td>
                             <td class="p-4">
                                 <span class="font-semibold text-base text-gray-600">
                                     {{ \Carbon\Carbon::parse($data->updated_at)->format('D M Y') }}

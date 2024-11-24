@@ -22,16 +22,21 @@
                       aria-describedby="nama-gejala-helper-text"
                     >
                   </div>
-                  <div>
-                    <label for="gambar-gejala{{$data->id}}" class="block text-sm font-semibold mt-3 mb-2 text-gray-600">Gambar</label>
-                    <input
-                      name="image"
-                      type="file"
-                      id="gambar-gejala{{$data->id}}"
-                      class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-600 focus:ring-0"
-                      aria-describedby="gambar-gejala-helper-text"
+                  <div class="mb-2">
+                    <label for="kategori-gejala" class="block text-sm font-semibold mb-2 text-gray-600">Kategori</label>
+                    <select
+                        name="kategori"
+                        id="kategori-gejala"
+                        class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-600 focus:ring-0"
                     >
-                  </div>
+                        <option value="" disabled selected>Pilih kategori</option>
+                        <option value="Daun">Daun</option>
+                        <option value="Batang">Batang</option>
+                        <option value="Akar">Akar</option>
+                        <option value="Buah">Buah</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
                 </div>
               </div>
             </div>

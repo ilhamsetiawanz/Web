@@ -3,7 +3,7 @@
 @section('body')
     <div class="mt-5 mb-6">
       <h3 class="text-2xl font-bold">
-        Laporan Hasil Diagnosa
+        Riwayat Hasil Diagnosa
       </h3>
     </div>
     <div class="bg-white rounded">

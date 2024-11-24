@@ -10,6 +10,7 @@
         <link rel="shortcut icon" type="image/png" href="./assets/images/logos/favicon.png"/>
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!-- Core Css -->
@@ -39,7 +40,7 @@
                                 <p
                                     class="text-base text-gray-500 font-normal p-3 text-center"
                                 >
-                                    Design and Developed by
+                                    Taman Sehat
                                     <a
                                         target="_blank"
                                         class="text-blue-600 underline hover:text-blue-700"

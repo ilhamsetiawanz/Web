@@ -10,7 +10,9 @@
                 @include('components.Admin.button.AddModal')
             </div>
                 @include('components.Admin.Aturan.ModalAdd')
-                
+                @foreach ($rules as $data)
+                    @include('components.Admin.Aturan.ModalEdit',  ['data' => $data])
+                @endforeach                
             
             <div class="relative overflow-x-auto">
                 <!-- table -->
@@ -50,7 +52,7 @@
                             <td class="p-4">
                                 <div class="flex gap-2">
                                     @include('components.Admin.button.EditModal', ['data' => $data])
-                                    @include('components.Admin.Gejala.DeleteGejala', ['data' => $data])
+                                    @include('components.Admin.Aturan.DeleteAturan', ['data' => $data])
                                 </div>
                             </td>
                         </tr>

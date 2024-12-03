@@ -24,7 +24,7 @@
                                 <div class="mb-2">
                                     <label for="kategori-gejala" class="block text-sm font-semibold mb-2 text-gray-600">Kategori</label>
                                     <select
-                                        name="kategori"
+                                        name="jenis_gejala"
                                         id="kategori-gejala"
                                         class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-600 focus:ring-0"
                                     >

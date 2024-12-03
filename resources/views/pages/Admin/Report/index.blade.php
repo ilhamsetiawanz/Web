@@ -80,8 +80,13 @@
                             </td>
                             <td class="p-4">
                                 <div class="flex gap-2">
-                                    {{-- @include('components.Admin.button.EditModal', ['data' => $data])
-                                    @include('components.Admin.Gejala.DeleteGejala', ['data' => $data]) --}}
+                                    <a href="{{ route('details.report', $data->id) }}">
+                                        <button class="flex items-center border border-blue-500 hover:border-blue-700 text-blue-500 hover:text-blue-700 font-bold py-2 px-4 rounded transition duration-300">
+                                            <span class="material-symbols-outlined">
+                                                visibility
+                                            </span>
+                                        </button>  
+                                    </a>
                                 </div>
                             </td>
                         </tr>

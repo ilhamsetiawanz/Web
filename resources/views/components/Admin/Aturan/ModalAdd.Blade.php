@@ -13,7 +13,7 @@
                                 <div class="mb-2">
                                     <label for="nama-penyakit" class="block text-sm font-semibold mb-2 text-gray-600">Nama Gejala</label>
                                     <select
-                                        name="namaPenyakit"
+                                        name="KdPenyakit"
                                         id="nama-penyakit"
                                         class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-600 focus:ring-0"
                                         required
@@ -27,7 +27,7 @@
                                 <div class="mb-2">
                                     <label for="kategori-gejala" class="block text-sm font-semibold mb-2 text-gray-600">Pilih Gejala</label>
                                     <select
-                                        name="kategori"
+                                        name="KdGejala"
                                         id="kategori-gejala"
                                         class="py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-blue-600 focus:ring-0"
                                     >

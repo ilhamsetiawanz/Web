@@ -35,7 +35,7 @@ class DataGejalaController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'name'        => 'required',
-            'jenis_gejala' => 'required'
+            'jenis_gejala' => ''
         ]);
         // Check if validation fails
         if ($validate->fails()) {
@@ -66,31 +66,17 @@ class DataGejalaController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'name'        => 'required',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg',
+            'jenis_gejala' => ''
+
         ]);
         // Check if validation fails
         if ($validate->fails()) {
             return response()->json($validate->errors(), 422);
         }
 
-        if ($request->hasFile('image')) {
-            // Delete old image if it exists
-            if ($dataGejala->image) {
-                Storage::delete('public/asset/dataGejala' . $dataGejala->image);
-            }
-    
-            // Upload new image
-            $image = $request->file('image');
-            $image->storeAs('public/asset/dataGejala', $image->hashName());
-            $imageName = $image->hashName();
-        } else {
-            // Keep the existing image if no new image is uploaded
-            $imageName = $dataGejala->image;
-        }
-
         $dataGejala->update([
             'name'        => $request->name,
-            'image'       => $imageName,
+            'jenis_gejala'       => $request->jenis_gejala,
         ]);
 
         return redirect('Admin/data-gejala');

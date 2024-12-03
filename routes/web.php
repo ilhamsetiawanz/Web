@@ -53,13 +53,15 @@ Route::middleware('auth')->group(function () {
         Route::prefix('data-aturan')->group(function () {
             Route::get('/', [RuleController::class, 'index'])->name('data-aturan');
             Route::post('/add', [RuleController::class, 'store'])->name('add-aturan');
-
-
+            Route::put('/edit/{rule}', [RuleController::class, 'update'])->name('edit-aturan');
+            Route::delete('/delete/{rule}', [RuleController::class, 'destroy'])->name('delete-aturan');
         });
 
         Route::prefix('laporan-bulanan')->group(function () {
             Route::get('/', [ReportController::class, 'index'])->name('laporan-bulanan');
             Route::get('/Download', [ReportController::class, 'downloadData'])->name('pdf');
+            Route::get('/details/{report}', [ReportController::class, 'DetailDiagnosisId'])->name('details.report');
+
         });
     });    
 

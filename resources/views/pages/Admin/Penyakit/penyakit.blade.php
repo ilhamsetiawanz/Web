@@ -41,7 +41,7 @@
                             <td class="p-3 text-pretty">
                                 <span>{{$data->solution}}</span>
                             </td>
-                            <td class="p-4">
+                            <td class="p-1">
                                 <img class="w-40" src="{{$data->image}}"alt="{{$data->NamaPenyakit}}">
                             </td>
                             <td class="p-4">

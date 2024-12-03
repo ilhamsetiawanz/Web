@@ -34,48 +34,12 @@ class ReportController extends Controller
     
         return view('pages.Admin.Report.index', compact('laporan', 'totalLaporan', 'penyakit', 'pengguna'));
     }
-    
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function DetailDiagnosisId(Report $report){
+        $report = Report::with('user')->find($report->id);  // Menambahkan relasi user
+        $penyakit = DataPenyakit::all();
+        $gejala = DataGejala::all();
+        return view('pages.Admin.Report.detail', compact('report', 'penyakit', 'gejala'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreReportRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Report $report)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Report $report)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateReportRequest $request, Report $report)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      */

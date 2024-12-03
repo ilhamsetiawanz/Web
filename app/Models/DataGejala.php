@@ -33,4 +33,9 @@ class DataGejala extends Model
             get: fn ($image) => url('/storage/asset/dataGejala/' . $image),
         );
     }
+    public function rule()
+    {
+        // Many to Many
+        return $this->hasMany(Rule::class);
+    }
 }

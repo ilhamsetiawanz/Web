@@ -22,8 +22,6 @@ class RuleController extends Controller
 
         return view('pages.Admin.Aturan.aturan', compact('rules', 'dataGejala', 'dataPenyakit'));
     }
-    
-
     /**
      * Store a newly created resource in storage.
      */
@@ -46,29 +44,26 @@ class RuleController extends Controller
         return redirect('Admin/data-aturan');
 
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Rule $rule)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Rule $rule)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateRuleRequest $request, Rule $rule)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'KdPenyakit' => 'required',
+            'KdGejala' => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json($validate->errors(), 422);
+        };
+
+        $rule->update([
+            'KdPenyakit' => $request->KdPenyakit,
+            'KdGejala' => $request->KdGejala,
+        ]);
+        
+        return redirect('Admin/data-aturan');
     }
 
     /**
@@ -76,6 +71,7 @@ class RuleController extends Controller
      */
     public function destroy(Rule $rule)
     {
-        //
+        $rule->delete();
+        return redirect('Admin/data-aturan');
     }
 }

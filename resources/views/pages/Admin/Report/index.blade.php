@@ -15,12 +15,7 @@
                     </button>
                 </a> 
             </div>
-                {{-- @include('components.Admin.Gejala.ModalAdd') --}}
-                {{-- @foreach ($gejala as $data) --}}
-                    {{-- @include('components.Admin.Gejala.ModalEdit', ['data' => $data]) --}}
-                    {{-- @include('components.Admin.Gejala.DeleteModal', ['data' => $data]) --}}
-                {{-- @endforeach --}}
-            
+
             <div class="relative overflow-x-auto">
                 <!-- table -->
                 <table class="text-left w-full whitespace-nowrap text-sm">
@@ -36,7 +31,10 @@
                     <tbody>
                         @forelse ($laporan as $data)
                         <tr class="overflow-hidden">
-                            <td class="p-4 font-semibold text-gray-600 ">{{$loop->iteration}}</td>
+                            <!-- Perbaikan: Tambahkan offset menggunakan firstItem() -->
+                            <td class="p-4 font-semibold text-gray-600 ">
+                                {{ $loop->iteration + $laporan->firstItem() - 1 }}
+                            </td>
                             <td class="p-4">
                                 @foreach ($pengguna as $petani)
                                     @if ($data->user_id == $petani->id)

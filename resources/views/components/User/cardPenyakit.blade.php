@@ -12,6 +12,7 @@
 <div class="container mx-auto mt-6">
     @foreach ($penyakits as $data)
     <div id="tab-{{ $data->id }}" class="tab-content p-6 bg-white rounded shadow hidden">
+        <h1 class="text-4xl font-bold mb-4">{{$data->NamaPenyakit}}</h1>
         <h2 class="text-2xl font-bold mb-4">Penyebab Penyakit</h2>
         <p class="mb-4">{{ $data->reason }}</p>
         <h3 class="text-xl font-bold mb-2">Solusi Penyakit</h3>

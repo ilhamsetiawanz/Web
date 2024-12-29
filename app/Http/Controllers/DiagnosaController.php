@@ -108,7 +108,7 @@ class DiagnosaController extends Controller
             }
 
             // Jika jumlah gejala yang cocok lebih dari atau sama dengan 3, penyakit terdeteksi
-            if ($matchingSymptoms >= 2) { 
+            if ($matchingSymptoms >= 3) { 
                 $foundDisease = $KdPenyakit; // Simpan ID penyakit yang ditemukan
                 $detects = true; // Tandai bahwa penyakit ditemukan
                 break; // Hentikan pencarian karena penyakit telah ditemukan

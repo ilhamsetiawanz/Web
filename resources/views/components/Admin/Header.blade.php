@@ -15,7 +15,7 @@
             <div class="hs-dropdown relative inline-flex [--placement:bottom-right] sm:[--trigger:hover]">
                 <a class="relative hs-dropdown-toggle cursor-pointer align-middle rounded-full">
                     <img class="object-cover w-9 h-9 rounded-full"
-                        src="{{ asset('img/profile.jpeg') }}"
+                        src="https://png.pngtree.com/png-clipart/20211023/ourlarge/pngtree-chili-spicy-logo-png-image_4002693.png"
                         alt="" aria-hidden="true" />
                 </a>
             </div>
